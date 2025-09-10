@@ -1,0 +1,34 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+header{
+    position: sticky;
+    z-index: 1;
+    top: 0px;
+    background-color: #DCAF8B;
+    width: 100%;
+    height: 70px;
+}
+
+.btnMenu{
+    border: none;
+    background: none;
+    position: relative;
+    font-size: 55px;
+    bottom: 8px;
+    left: 95.5%;
+}
+
+.imgHome{
+     z-index: 0;
+    position: relative;
+    bottom: 7.6px;
+}
+
+@media only screen and (max-width: 800px) {
+.btnMenu{
+    left: 87%;
+}
+}
