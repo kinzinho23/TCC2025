@@ -16,15 +16,16 @@ header{
     border: none;
     background: none;
     position: relative;
-    font-size: 55px;
-    bottom: 8px;
+    font-size: 50px;
+    bottom: 5px;
     left: 95.5%;
 }
 
 .imgHome{
-     z-index: 0;
+    z-index: 0;
     position: relative;
     bottom: 7.6px;
+    
 }
 
 @media only screen and (max-width: 800px) {
