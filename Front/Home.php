@@ -19,6 +19,13 @@
     <main>
         <div class="imgHome">
             <img src="../img/backgroundHome.svg" alt="Imagem inicial do site">
+            <div id="Title">
+            <h1>
+                Seu gerenciador 
+                de 
+                sala de aula
+            </h1>
+            </div>
         </div>
     </main>
 
