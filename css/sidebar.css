@@ -1,0 +1,33 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+} 
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -300px; 
+    width: 300px;
+    height: 100%;
+    background: #dcaf8b;
+    color: #fff;
+    transition: right 0.3s ease;
+    box-shadow: -2px 0 8px rgba(0,0,0,0.2);
+    padding: 20px;
+    z-index: 1000;
+}
+
+.sidebar.open {
+    right: 0;
+} 
+
+.close-btn {
+    background: none;
+    border: none;
+    color: #000000;
+    font-size: 50px;
+    position: absolute;
+    top: 1px;
+    left: 20px;
+    cursor: pointer;
+} 

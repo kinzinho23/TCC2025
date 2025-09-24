@@ -13,7 +13,8 @@
 </head>
 <body>
     <header>
-        <button class="bi bi-list btnMenu"></button>     
+        <button class="bi bi-list btnMenu" onclick="openSidebar()"></button>    
+        <?php include 'HomeBar.php'; ?> 
     </header>
 
     <main>
@@ -30,5 +31,6 @@
     <footer>
 
     </footer>
+    <script src="../Js/sidebar.js"></script>
 </body>
 </html>
