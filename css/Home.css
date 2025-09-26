@@ -25,12 +25,16 @@ header{
     z-index: 0;
     position: relative;
     bottom: 7.6px;
-    
+    display: block;
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+    height: 849px;
 }
 
 #Title{
     position: relative;
-    bottom: 620px;
+    bottom: 580px;
     text-align: center;
 }
 
@@ -42,8 +46,118 @@ h1{
     padding: 0;
 }
 
+.sobre {
+    width: 100vw;
+    max-width: none;
+    background: #fff;
+    border-radius: 0;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    padding: 48px 8vw 40px 8vw;
+    text-align: left;
+    font-family: 'Poppins', sans-serif;
+    color: #3d2c1e;
+    transition: box-shadow 0.3s, transform 0.3s;
+    border-left: none;
+    border-top: 8px solid #dcaf8b;
+}
+.sobre-divider {
+    width: 60px;
+    height: 4px;
+    background: #dcaf8b;
+    border-radius: 2px;
+    margin: 18px 0 24px 0;
+}
+.sobre h2 {
+    font-size: 2.3rem;
+    font-weight: 700;
+    margin-bottom: 0;
+    color: #dcaf8b;
+    letter-spacing: 1px;
+}
+.sobre h3 {
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: #7a5c3a;
+    margin-bottom: 18px;
+    margin-top: 0;
+    letter-spacing: 0.5px;
+}
+.sobre p {
+    font-size: 1.18rem;
+    line-height: 1.7;
+    color: #5a4633;
+    margin: 0 0 18px 0;
+}
+.sobre-missao {
+    font-weight: 600;
+    color: #dcaf8b;
+    margin-top: 24px;
+    font-size: 1.15rem;
+}
+.sobre ul {
+    margin: 0 0 18px 1.2em;
+    padding: 0;
+    list-style: disc inside;
+}
+.sobre li {
+    font-size: 1.08rem;
+    margin-bottom: 8px;
+    color: #3d2c1e;
+    line-height: 1.6;
+}
+.sobre-beneficios {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px 32px;
+    margin: 32px 0 18px 0;
+}
+.beneficio-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    background: #f8f5f1;
+    border-radius: 10px;
+    padding: 18px 18px 18px 14px;
+    box-shadow: 0 2px 8px rgba(220,175,139,0.07);
+    transition: box-shadow 0.2s;
+}
+.beneficio-item:hover {
+    box-shadow: 0 4px 16px rgba(220,175,139,0.15);
+}
+.beneficio-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 40px;
+}
+.beneficio-item span:last-child {
+    display: block;
+    font-size: 1.08rem;
+    color: #3d2c1e;
+    line-height: 1.6;
+}
 @media only screen and (max-width: 800px) {
 .btnMenu{
     left: 87%;
 }
+.sobre {
+        padding: 24px 2vw 18px 2vw;
+    }
+    .sobre h2 {
+        font-size: 1.5rem;
+    }
+    .sobre h3 {
+        font-size: 1.05rem;
+    }
+    .sobre p, .sobre li, .sobre-missao {
+        font-size: 1rem;
+    }
+}
+@media (max-width: 900px) {
+    .sobre-beneficios {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
 }
