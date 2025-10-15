@@ -122,7 +122,8 @@ h1{
     transition: box-shadow 0.2s;
 }
 .beneficio-item:hover {
-    box-shadow: 0 4px 16px rgba(220,175,139,0.15);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.247);
+    transform: translateY(-2px);
 }
 .beneficio-icon {
     flex-shrink: 0;
