@@ -11,7 +11,7 @@
     <header class="homebar">
         <div class="left">
             <button class="icon" onclick="toggleSidebar()" aria-label="Abrir menu">☰</button>
-            <span class="logo">MeuApp</span>
+            <span class="logo">MyClass</span>
             <nav class="nav">
                 <a href="#">Início</a>
                 <a href="#">Projetos</a>
@@ -21,7 +21,8 @@
         
         <div class="actions">
             <button class="icon" title="Notificações">🔔</button>
-            <div class="avatar" title="Usuário"></div>
+            <!-- Colocar img aqui -->
+            <img src="../img/gatobobo.jpg" class="avatar" title="Usuário" alt="Avatar do Usuário">
         </div>
     </header>
 
@@ -30,17 +31,17 @@
         <!-- Conteúdo da sidebar -->
         <nav>
             <ul>
+                <li><a href="#">Início</a></li>
+                <li><a href="#">Salas de aula</a></li>
+                <li><a href="#">Materias</a></li>
                 <li><a href="#">Dashboard</a></li>
                 <li><a href="#">Perfil</a></li>
                 <li><a href="#">Configurações</a></li>
+                <li><a href="#">Sair</a></li>
             </ul>
         </nav>
     </div>
     <script src="../Js/sidebar.js"></script>
-    <script>
-        function toggleSidebar() { var sb = document.getElementById('sidebar'); sb.classList.toggle('open'); }
-        function closeSidebar() { var sb = document.getElementById('sidebar'); sb.classList.remove('open'); }
-    </script>
 </body>
 
 </html>

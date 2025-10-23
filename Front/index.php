@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/Home.css">
-    <title>Início</title>
+    <title>MyClass - Gerenciador de sala de aula</title>
 </head>
 
 <body>
@@ -31,7 +31,7 @@
             <div class="sobre-divider"></div>
             <h3>Inovação e praticidade para a gestão escolar</h3>
             <p>
-                O <strong>Sala de Aula</strong> é uma plataforma web criada para transformar a experiência de
+                O <strong>MyClass</strong> é uma plataforma web criada para transformar a experiência de
                 professores, alunos e administradores. Nosso objetivo é simplificar processos, promover a colaboração e
                 potencializar o ensino com tecnologia de ponta.
             </p>

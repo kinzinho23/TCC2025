@@ -2,8 +2,8 @@
 <footer class="site-footer" role="contentinfo">
 	<div class="footer-container">
 		<div class="footer-col footer-brand">
-			<a href="/" class="brand">Nome do Projeto</a>
-			<p class="slogan">Slogan curto ou descrição do projeto.</p>
+			<a href="/" class="brand">MyClass</a>
+			<p class="slogan">Seu gerenciador de sala de aulas simplificado.</p>
 		</div>
 
 		<nav class="footer-col footer-links" aria-label="Links do rodapé">
@@ -24,7 +24,7 @@
 	</div>
 
 	<div class="footer-bottom">
-		<p>&copy; <?php echo date('Y'); ?> Nome do Projeto. Todos os direitos reservados.</p>
+		<p>&copy; <?php echo date('Y'); ?> MyClass. Todos os direitos reservados.</p>
 	</div>
 </footer>
 

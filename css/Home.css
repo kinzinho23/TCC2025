@@ -47,7 +47,7 @@ h1{
 }
 
 .sobre {
-    width: 100vw;
+    width: 100%;
     max-width: none;
     background: #fff;
     border-radius: 0;

@@ -41,6 +41,10 @@ body.app-bg {
      font-size: 0.95rem; 
     }
 
+.homebar .nav a:hover {
+    text-decoration: underline; 
+}
+
 .homebar .actions { 
     display: flex; 
     align-items: center; 
@@ -157,9 +161,10 @@ body {
 .sidebar nav { 
     margin-top: 14px; 
 }
+
 .sidebar nav ul { 
     position: relative;
-    top: 30px;
+    top: 50px;
     list-style: none; 
     padding: 0; 
     margin: 0; 
