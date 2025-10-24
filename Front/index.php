@@ -13,7 +13,7 @@
 
 <body>
     <header>
-        
+        <!-- Lembrar de fazer a sidebar alternativel para quem tiver deslogado -->
         <?php include 'sidebar.php'; ?>
     </header>
 

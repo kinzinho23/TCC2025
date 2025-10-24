@@ -15,7 +15,7 @@
             <nav class="nav">
                 <a href="#">Início</a>
                 <a href="#">Projetos</a>
-                <a href="#">Contato</a>
+                <a href=".">Contato</a>
             </nav>
         </div>
         
@@ -31,13 +31,13 @@
         <!-- Conteúdo da sidebar -->
         <nav>
             <ul>
-                <li><a href="#">Início</a></li>
-                <li><a href="#">Salas de aula</a></li>
-                <li><a href="#">Materias</a></li>
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="#">Perfil</a></li>
-                <li><a href="#">Configurações</a></li>
-                <li><a href="#">Sair</a></li>
+                <li><a href="../Front">Início</a></li>
+                <li><a href="../Front/salas.php">Salas de aula</a></li>
+                <li><a href="../Front/materias.php">Materias</a></li>
+                <li><a href="../Front/dashboard.php">Dashboard</a></li>
+                <li><a href="../Front/perfil.php">Perfil</a></li>
+                <li><a href="../Front/configuracoes.php">Configurações</a></li>
+                <li><a href="../Back/sair.php">Sair</a></li>
             </ul>
         </nav>
     </div>

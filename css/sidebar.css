@@ -67,7 +67,7 @@ body.app-bg {
 
 .sidebar { 
     position: fixed; 
-    left: -320px; 
+    left: -350px; 
     top: 0; 
     bottom: 0; 
     width: 260px; 
@@ -95,7 +95,7 @@ body {
 .sidebar {
     position: fixed;
     top: 0;
-    right: -320px; 
+    right: -330px; 
     width: 320px;
     max-width: 85vw;
     height: 100%;
