@@ -1,6 +1,9 @@
+<?php
+include '../Back/conexao.php';
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../css/sidebar.css">
@@ -18,12 +21,15 @@
                 <a href=".">Contato</a>
             </nav>
         </div>
-        
+        <?php if (isset($_SESSION['usuario'])): ?>
         <div class="actions">
             <button class="icon" title="Notificações">🔔</button>
             <!-- Colocar img aqui -->
             <img src="../img/gatobobo.jpg" class="avatar" title="Usuário" alt="Avatar do Usuário">
         </div>
+        <?php endif; ?>
+
+        
     </header>
 
     <div class="sidebar" id="sidebar">
@@ -42,6 +48,7 @@
         </nav>
     </div>
     <script src="../Js/sidebar.js"></script>
+  
 </body>
 
 </html>
