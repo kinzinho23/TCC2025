@@ -1,0 +1,88 @@
+
+:root{
+    --accent: #dcaf8b;
+    --bg: #f4f7fb;
+    --card: #ffffff;
+    --text: #222222;
+    --muted: #6b6b6b;
+    --input-border: #e6e6e6;
+}
+
+body {
+    background: radial-gradient(circle at top left, var(--bg), var(--accent));
+    margin: 0;
+    min-height: 86vh;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--text);
+}
+
+main {
+    background-color: var(--accent);
+    padding: 20px;
+    text-align: center;
+    border-radius: 12px;
+    width: 300px;
+    height: 400px;
+    margin: 100px auto;
+    box-shadow: 0 8px 30px rgba(7, 9, 14, 0.192);
+}
+
+label[for="username"] {
+    position: relative;
+    top: 25px;
+    right: 76px;
+    font-weight: bold;
+}
+
+label[for="password"] {
+    position: relative;
+    top: 25px;
+    right: 105px;
+    font-weight: bold;
+}
+
+label {
+    position: relative;
+    top: 20px;
+    right: 90px;
+    font-weight: bold;
+}
+
+input[type="text"], input[type="password"] {
+    position: relative;
+    top: 20px;
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid var(--input-border);
+    border-radius: 6px;
+}
+
+button {
+    position: relative;
+    top: 60px;
+    background-color: var(--text);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+a {
+    position: relative;
+    top: 20px;
+    right: -70px;
+    font-size: 14px;
+    color: var(--text);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+button:hover {
+    background-color: #444444;
+}

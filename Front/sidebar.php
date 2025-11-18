@@ -27,11 +27,13 @@ include '../Back/conexao.php';
             <!-- Colocar img aqui -->
             <img src="../img/gatobobo.jpg" class="avatar" title="Usuário" alt="Avatar do Usuário">
         </div>
+        <?php else: ?>
+        <div class="actions">
+            <a href="../Front/login.php" class="login-btn">Login</a>
         <?php endif; ?>
 
-        
     </header>
-
+<?php if (isset($_SESSION['usuario'])): ?>
     <div class="sidebar" id="sidebar">
         <button class="close-btn" onclick="closeSidebar()">&times;</button>
         <!-- Conteúdo da sidebar -->
@@ -47,6 +49,8 @@ include '../Back/conexao.php';
             </ul>
         </nav>
     </div>
+    <?php endif; ?>
+
     <script src="../Js/sidebar.js"></script>
   
 </body>

@@ -212,6 +212,15 @@ body {
     border-radius: 6px; 
 }
 
+.actions .login-btn, .actions .signup-btn {
+    text-decoration: none;
+    color: #222;
+}
+
+.actions .login-btn:hover, .actions .signup-btn:hover {
+    text-decoration: underline;
+}
+
 @media (max-width: 720px) {
     .sidebar { width: 100%; right: -100%; }
     .sidebar.open { right: 0; }
