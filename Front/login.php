@@ -1,4 +1,3 @@
-<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -21,7 +20,9 @@
             <span><a href="#">esqueci a senha</a></span>
             <br>
             <button type="submit">Entrar</button>
-            
+            <?php if (isset($_GET['error'])): ?>
+                <p style="color: red; position: relative; top: -20px;">Identificação ou senha inválida.</p>
+            <?php endif; ?>
         </form>
     </main> 
 </body>

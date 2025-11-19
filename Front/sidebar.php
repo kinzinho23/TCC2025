@@ -1,5 +1,6 @@
 <?php
-include '../Back/conexao.php';
+session_start();
+require_once __DIR__ . '/../Back/conexao.php';
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +22,7 @@ include '../Back/conexao.php';
                 <a href=".">Contato</a>
             </nav>
         </div>
-        <?php if (isset($_SESSION['usuario'])): ?>
+        <?php if (!isset($_SESSION['usuario'])): ?>
         <div class="actions">
             <button class="icon" title="Notificações">🔔</button>
             <!-- Colocar img aqui -->
@@ -30,10 +31,11 @@ include '../Back/conexao.php';
         <?php else: ?>
         <div class="actions">
             <a href="../Front/login.php" class="login-btn">Login</a>
+        </div>
         <?php endif; ?>
 
     </header>
-<?php if (isset($_SESSION['usuario'])): ?>
+<?php if (!isset($_SESSION['usuario'])): ?>
     <div class="sidebar" id="sidebar">
         <button class="close-btn" onclick="closeSidebar()">&times;</button>
         <!-- Conteúdo da sidebar -->
@@ -45,6 +47,9 @@ include '../Back/conexao.php';
                 <li><a href="../Front/dashboard.php">Dashboard</a></li>
                 <li><a href="../Front/perfil.php">Perfil</a></li>
                 <li><a href="../Front/configuracoes.php">Configurações</a></li>
+                <?php //if (isset($_SESSION['tipoUsuario']) && $_SESSION['tipoUsuario'] === 'dev'): ?>
+                <li><a href="../Front/configuracoesDev.php">ConfiguraçõesDev</a></li>
+                <?php //endif; ?>
                 <li><a href="../Back/sair.php">Sair</a></li>
             </ul>
         </nav>

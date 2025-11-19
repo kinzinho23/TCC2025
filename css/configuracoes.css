@@ -1,0 +1,114 @@
+/* filepath: c:\TCC\TCC2025\css\configuracoes.css */
+/* Estilos para a página de configurações — paleta consistente com o site */
+:root {
+    --accent: #dcaf8b;
+    --bg: #f4f7fb;
+    --card: #ffffff;
+    --muted: #6b6b6b;
+    --text: #222222;
+    --border: #ececec;
+}
+
+body.config-page {
+    background: linear-gradient(180deg, #fbfbfc, var(--bg));
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--text);
+}
+
+.container {
+    max-width: 1100px;
+    margin: 28px auto;
+    padding: 0 16px;
+}
+
+.header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.header-row h2 { margin: 0; font-size: 20px; }
+.header-row .subtitle { color: var(--muted); font-size: 13px; }
+
+.config-grid {
+    display: grid;
+    grid-template-columns: 1fr 320px; /* painel principal + painel lateral */
+    gap: 18px;
+}
+
+.card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 8px 24px rgba(16,24,40,0.04);
+    border: 1px solid var(--border);
+}
+
+/* Lista de configurações em tabela leve */
+.config-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.config-table thead th {
+    text-align: left;
+    font-weight: 600;
+    padding: 12px 10px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+}
+.config-table tbody td {
+    padding: 12px 10px;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.config-actions { display: flex; gap: 8px; }
+
+/* Formulário de criação/edição */
+.form-row { display:flex; gap:8px; align-items:center; }
+.form-group { margin-bottom: 10px; }
+.form-group label { display:block; font-size:13px; color:var(--muted); margin-bottom:6px; }
+.form-group input[type="text"], .form-group input[type="password"], .form-group textarea, .form-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #fff;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.form-actions { display:flex; gap:10px; margin-top:10px; }
+
+button.btn { padding: 10px 14px; border-radius: 8px; border: none; cursor: pointer; font-weight:600; }
+button.btn-primary { background: var(--accent); color: #fff; }
+button.btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--text); }
+button.btn-danger { background: #ef6a6a; color: #fff; }
+
+/* Painel lateral info/filtrar */
+.side-panel h3 { margin-top: 0; margin-bottom: 8px; }
+.side-panel .hint { color: var(--muted); font-size: 13px; }
+
+/* Empty state */
+.empty-state { text-align: center; padding: 32px 12px; color: var(--muted); }
+
+/* Pequenos badges */
+.badge { display:inline-block; padding: 6px 8px; border-radius: 999px; font-size:12px; background: rgba(220,175,139,0.12); color: var(--accent); }
+
+/* Scrollbar discreto */
+.card::-webkit-scrollbar { width: 8px; }
+.card::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.08); border-radius: 6px; }
+
+/* Responsivo */
+@media (max-width: 960px) {
+    .config-grid { grid-template-columns: 1fr; }
+    .header-row { flex-direction: column; align-items: flex-start; gap: 6px; }
+}
+
+/* Pequenos ajustes visuais */
+.config-table tbody tr:hover td { background: rgba(0,0,0,0.02); }
