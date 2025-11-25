@@ -1,6 +1,18 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) session_start();
 require_once __DIR__ . '/../Back/conexao.php';
+
+$user = null;
+if (!empty($_SESSION['idUsuario'])) {
+    $uid = (int) $_SESSION['idUsuario'];
+    if ($stmt = $conn->prepare('SELECT idUsuario, nomeUsuario, identificador, tipoUsuario FROM usuario WHERE idUsuario = ? LIMIT 1')) {
+        $stmt->bind_param('i', $uid);
+        $stmt->execute();
+        $res = $stmt->get_result();
+        $user = $res->fetch_assoc();
+        $stmt->close();
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -17,28 +29,25 @@ require_once __DIR__ . '/../Back/conexao.php';
             <button class="icon" onclick="toggleSidebar()" aria-label="Abrir menu">☰</button>
             <span class="logo">MyClass</span>
             <nav class="nav">
-                <a href="#">Início</a>
-                <a href="#">Projetos</a>
-                <a href=".">Contato</a>
+                <a href="../Front">Início</a>
+                <a href="../Front/projetos.php">Projetos</a>
+                <a href="../Front/contato.php">Contato</a>
             </nav>
         </div>
-        <?php if (!isset($_SESSION['usuario'])): ?>
-        <div class="actions">
-            <button class="icon" title="Notificações">🔔</button>
-            <!-- Colocar img aqui -->
-            <img src="../img/gatobobo.jpg" class="avatar" title="Usuário" alt="Avatar do Usuário">
-        </div>
-        <?php else: ?>
-        <div class="actions">
-            <a href="../Front/login.php" class="login-btn">Login</a>
-        </div>
-        <?php endif; ?>
 
+        <div class="actions">
+            <?php if ($user): ?>
+                <button class="icon" title="Notificações">🔔</button>
+                <img src="../img/gatobobo.jpg" class="avatar" title="Usuário" alt="Avatar do Usuário">
+            <?php else: ?>
+                <a href="../Front/login.php" class="login-btn">Login</a>
+            <?php endif; ?>
+        </div>
     </header>
-<?php if (!isset($_SESSION['usuario'])): ?>
+
+    <?php if ($user): ?>
     <div class="sidebar" id="sidebar">
         <button class="close-btn" onclick="closeSidebar()">&times;</button>
-        <!-- Conteúdo da sidebar -->
         <nav>
             <ul>
                 <li><a href="../Front">Início</a></li>
@@ -47,10 +56,10 @@ require_once __DIR__ . '/../Back/conexao.php';
                 <li><a href="../Front/dashboard.php">Dashboard</a></li>
                 <li><a href="../Front/perfil.php">Perfil</a></li>
                 <li><a href="../Front/configuracoes.php">Configurações</a></li>
-                <?php //if (isset($_SESSION['tipoUsuario']) && $_SESSION['tipoUsuario'] === 'dev'): ?>
-                <li><a href="../Front/configuracoesDev.php">ConfiguraçõesDev</a></li>
-                <?php //endif; ?>
-                <li><a href="../Back/sair.php">Sair</a></li>
+                <?php if (isset($user['tipoUsuario']) && $user['tipoUsuario'] === 'dev'): ?>
+                    <li><a href="../Front/configuracoesDev.php">ConfiguraçõesDev</a></li>
+                <?php endif; ?>
+                <li><a href="../Back/logout.php">Sair</a></li>
             </ul>
         </nav>
     </div>

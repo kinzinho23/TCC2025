@@ -1,76 +1,44 @@
 <?php
-session_start();
-header('Content-Type: application/json; charset=utf-8');
+// criar usuario
 
-require_once __DIR__ . '/conexao.php';
+if (isset($_POST['action']) && $_POST['action'] === 'create_user') {
+    require_once 'conexao.php';
 
-// Apenas desenvolvedores podem usar essa rota
-if (isset($_SESSION['tipoUsuario']) || $_SESSION['tipoUsuario'] == 'dev') {
-    http_response_code(403);
-    echo json_encode(['success' => false, 'message' => 'Acesso negado']);
-    exit();
-}
+    // Captura e sanitiza os dados do formulário
+    $nomeUsuario = trim($_POST['nomeUsuario']);
+    $identificador = trim($_POST['identificador']);
+    $senhaUsuario = $_POST['senhaUsuario'];
+    $tipoUsuario = $_POST['tipoUsuario'];
 
-// Apenas POST para criação de usuário
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    echo json_encode(['success' => false, 'message' => 'Método não permitido']);
-    exit();
-}
-
-$action = $_POST['action'] ?? '';
-if ($action !== 'create_user') {
-    http_response_code(400);
-    echo json_encode(['success' => false, 'message' => 'Ação inválida']);
-    exit();
-}
-
-// Ler campos
-$username = trim($_POST['username'] ?? '');
-$email = trim($_POST['email'] ?? '');
-$password = $_POST['password'] ?? '';
-$tipoUsuario = trim($_POST['tipoUsuario'] ?? 'user');
-
-if ($username === '' || $email === '' || $password === '') {
-    http_response_code(400);
-    echo json_encode(['success' => false, 'message' => 'Dados incompletos']);
-    exit();
-}
-
-// Validações simples
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    http_response_code(400);
-    echo json_encode(['success' => false, 'message' => 'E-mail inválido']);
-    exit();
-}
-
-try {
-    // Checar duplicidade
-    $chk = $conn->prepare('SELECT idUsuario FROM usuario WHERE identificador = ? OR email = ? LIMIT 1');
-    $chk->bind_param('ss', $username, $email);
-    $chk->execute();
-    $resChk = $chk->get_result();
-    if ($resChk && $resChk->num_rows > 0) {
-        http_response_code(409);
-        echo json_encode(['success' => false, 'message' => 'Usuário ou e-mail já cadastrado']);
+    // Validação básica
+    if (empty($nomeUsuario) || empty($identificador) || empty($senhaUsuario) || empty($tipoUsuario)) {
+        header('Location: ../Front/configuracoesDev.php?error=empty_fields');
         exit();
     }
 
-    // Inserir usuário
-    $hash = password_hash($password, PASSWORD_DEFAULT);
-    $ins = $conn->prepare('INSERT INTO usuario (identificador, email, senha, tipoUsuario, created_at) VALUES (?, ?, ?, ?, NOW())');
-    $ins->bind_param('ssss', $username, $email, $hash, $tipoUsuario);
-    $ins->execute();
-    $newId = $ins->insert_id;
+    // Verifica se o identificador já existe
+    $sqlCheck = "SELECT idUsuario FROM usuario WHERE identificador = ?";
+    $stmtCheck = $conn->prepare($sqlCheck);
+    $stmtCheck->bind_param("s", $identificador);
+    $stmtCheck->execute();
+    $resultCheck = $stmtCheck->get_result();
+ 
+    // Hash da senha
+    $hashedPassword = password_hash($senhaUsuario, PASSWORD_DEFAULT);
 
-    echo json_encode(['success' => true, 'id' => $newId]);
-    exit();
+    // Insere o novo usuário no banco de dados
+    $sqlInsert = "INSERT INTO usuario (nomeUsuario, identificador, senhaUsuario, tipoUsuario) VALUES (?, ?, ?, ?)";
+    $stmtInsert = $conn->prepare($sqlInsert);
+    $stmtInsert->bind_param("ssss", $nomeUsuario, $identificador, $hashedPassword, $tipoUsuario);
 
-} catch (Exception $e) {
-    error_log('configuracoesDev_process.php create_user error: ' . $e->getMessage());
-    http_response_code(500);
-    echo json_encode(['success' => false, 'message' => 'Erro no servidor']);
-    exit();
+    if ($stmtInsert->execute()) {
+        header('Location: ../Front/configuracoesDev.php?success=Usuario criado com sucesso');
+        exit();
+    } else {
+        header('Location: ../Front/configuracoesDev.php?error=Usuário não pôde ser criado');
+        exit();
+    }
 }
+
 
 ?>

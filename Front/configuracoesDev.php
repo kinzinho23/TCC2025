@@ -1,3 +1,21 @@
+<?php
+session_start();
+require_once '../Back/conexao.php';
+
+// Carrega lista de usuários para exibição
+$users = [];
+try {
+    $stmt = $conn->prepare('SELECT idUsuario, nomeUsuario, identificador, tipoUsuario FROM usuario ORDER BY idUsuario DESC');
+    if ($stmt) {
+        $stmt->execute();
+        $res = $stmt->get_result();
+        while ($row = $res->fetch_assoc()) $users[] = $row;
+        $stmt->close();
+    }
+} catch (Exception $e) {
+    error_log('configuracoesDev.php users select: ' . $e->getMessage());
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -7,8 +25,9 @@
     <title>MyClass - Configurações de Desenvolvedor</title>
 </head>
 <body class="config-page">
+    <header>
     <?php include 'sidebar.php'; ?>
-
+    </header>
     <main class="container">
         <div class="header-row">
             <div>
@@ -16,32 +35,42 @@
                 <div class="subtitle">Gerencie configurações aplicáveis apenas para desenvolvedores</div>
             </div>
             <div>
-                <button id="refreshBtn" class="btn btn-ghost">Atualizar</button>
+                <a href="#" class="btn btn-ghost">Atualizar</a>
                 <span class="badge">Dev</span>
             </div>
         </div>
+
+        <?php if (!empty($_GET['success'])): ?>
+            <div class="alert alert-success">
+                <?php echo htmlspecialchars($_GET['success']); ?>
+            </div>
+        <?php endif; ?>
+        <?php if (!empty($_GET['error'])): ?>
+            <div class="alert alert-error">
+                <?php echo htmlspecialchars($_GET['error']); ?>
+            </div>
+        <?php endif; ?>
 
         <div class="config-grid">
             <section class="card">
                 <h3>Lista de Configurações</h3>
                 <div style="overflow:auto;">
-                    <table class="config-table" id="configTable">
+                    <table class="config-table">
                         <thead>
                             <tr><th>ID</th><th>Chave</th><th>Valor</th><th>Ações</th></tr>
                         </thead>
                         <tbody>
-                            <!-- preenchido por JS -->
+                            <tr><td colspan="4" class="empty-state">Nenhuma configuração carregada (sem PHP)</td></tr>
                         </tbody>
                     </table>
-                    <div id="empty" class="empty-state" style="display:none;">Nenhuma configuração encontrada.</div>
                 </div>
             </section>
 
             <aside class="side-panel card">
-                <h3>Criar / Editar</h3>
-                <div class="hint">Use o formulário para adicionar ou editar uma configuração.</div>
-                <form id="configForm">
-                    <input type="hidden" name="id" id="configId">
+                <h3>Criar Configuração</h3>
+                <div class="hint">Use o formulário para adicionar uma configuração (POST para backend).</div>
+                <form method="post" action="../Back/configuracoesDev_process.php">
+                    <input type="hidden" name="action" value="create">
                     <div class="form-group">
                         <label for="config_key">Chave</label>
                         <input type="text" id="config_key" name="config_key" required>
@@ -51,18 +80,18 @@
                         <textarea id="config_value" name="config_value" rows="6"></textarea>
                     </div>
                     <div class="form-actions">
-                        <button type="submit" class="btn btn-primary" id="saveBtn">Salvar</button>
-                        <button type="button" class="btn btn-ghost" id="clearBtn">Limpar</button>
-                        <button type="button" class="btn btn-danger" id="deleteBtn" style="display:none;">Excluir</button>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                        <button type="reset" class="btn btn-ghost">Limpar</button>
                     </div>
                 </form>
 
                 <hr style="margin:14px 0">
 
                 <h3>Criar Usuário</h3>
-                <form id="userForm" action="../Back/configuracoesDev_process.php" method="POST">
+                <form method="post" action="../Back/configuracoesDev_process.php">
+                    <input type="hidden" name="action" value="create_user">
                     <div class="form-group">
-                        <label for="nomeUsuario">Usuário</label>
+                        <label for="nomeUsuario">Nome</label>
                         <input type="text" id="nomeUsuario" name="nomeUsuario" required>
                     </div>
                     <div class="form-group">
@@ -76,10 +105,10 @@
                     <div class="form-group">
                         <label for="tipoUsuario">Tipo</label>
                         <select id="tipoUsuario" name="tipoUsuario">
-                            <option value="aluno">Aluno</option>
-                            <option value="professor">Professor</option>
-                            <option value="Direcao">Direção</option>
-                            <option value="dev">Dev</option>
+                            <option value="aluno">aluno</option>
+                            <option value="professor">professor</option>
+                            <option value="Direcao">direção</option>
+                            <option value="dev">dev</option>
                         </select>
                     </div>
                     <div class="form-actions">
@@ -89,145 +118,43 @@
 
             </aside>
         </div>
+
+        <!-- Lista de usuários -->
+        <section class="card" style="margin-top:18px;">
+            <h3>Lista de Usuários</h3>
+            <div style="overflow:auto;">
+                <table class="config-table">
+                    <thead>
+                        <tr><th>ID</th><th>Nome</th><th>Identificador</th><th>Tipo</th><th>Ações</th></tr>
+                    </thead>
+                    <tbody>
+                        <?php if (empty($users)): ?>
+                            <tr><td colspan="5" class="empty-state">Nenhum usuário encontrado.</td></tr>
+                        <?php else: ?>
+                            <?php foreach ($users as $u): ?>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($u['idUsuario']); ?></td>
+                                    <td><?php echo htmlspecialchars($u['nomeUsuario']); ?></td>
+                                    <td><?php echo htmlspecialchars($u['identificador']); ?></td>
+                                    <td><?php echo htmlspecialchars($u['tipoUsuario']); ?></td>
+                                    <td>
+                                        <form method="post" action="../Back/configuracoesDev_process.php" style="display:inline;">
+                                            <input type="hidden" name="action" value="delete_user">
+                                            <input type="hidden" name="idUsuario" value="<?php echo htmlspecialchars($u['idUsuario']); ?>">
+                                            
+                                        </form>
+                                        <button type="submit" class="btn btn-ghost" onclick="return confirm('Editar usuário?')"><a style="text-decoration:none; color: inherit;" href="../Front/editarUsuario.php?id=<?php echo htmlspecialchars($u['idUsuario']); ?>">Editar</a></button>
+                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Excluir usuário?')"><a style="text-decoration:none; color: inherit;" href="../Back/configuracoesDev_process.php?action=delete_user&idUsuario=<?php echo htmlspecialchars($u['idUsuario']); ?>">Excluir</a></button>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
     </main>
 
-    <script>
-        const api = '../Back/configuracoesDev_process.php';
-        const tableBody = document.querySelector('#configTable tbody');
-        const emptyState = document.getElementById('empty');
-        const form = document.getElementById('configForm');
-        const saveBtn = document.getElementById('saveBtn');
-        const clearBtn = document.getElementById('clearBtn');
-        const deleteBtn = document.getElementById('deleteBtn');
-        const refreshBtn = document.getElementById('refreshBtn');
-        const userForm = document.getElementById('userForm');
-
-        async function listConfigs(){
-            try{
-                const res = await fetch(api + '?action=list');
-                const json = await res.json();
-                if(!json.success) throw new Error(json.message || 'Erro ao listar');
-                renderTable(json.data || []);
-            }catch(err){
-                console.error(err);
-                alert('Erro ao carregar configurações');
-            }
-        }
-
-        function renderTable(items){
-            tableBody.innerHTML = '';
-            if(!items.length){ emptyState.style.display='block'; return; }
-            emptyState.style.display='none';
-            items.forEach(it => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `<td>${it.id}</td><td>${escapeHtml(it.config_key)}</td><td>${escapeHtml(it.config_value)}</td><td class="config-actions">
-                    <button class="btn btn-ghost" data-id="${it.id}" data-action="edit">Editar</button>
-                    <button class="btn btn-danger" data-id="${it.id}" data-action="delete">Excluir</button>
-                </td>`;
-                tableBody.appendChild(tr);
-            });
-        }
-
-        // Escape simples
-        function escapeHtml(s){ return (s+'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-
-        // eventos delegados para editar/excluir
-        tableBody.addEventListener('click', async function(e){
-            const btn = e.target.closest('button');
-            if(!btn) return;
-            const id = btn.dataset.id;
-            const action = btn.dataset.action;
-            if(action === 'edit') return loadConfig(id);
-            if(action === 'delete') return confirmDelete(id);
-        });
-
-        async function loadConfig(id){
-            try{
-                const res = await fetch(api + '?action=get&id=' + encodeURIComponent(id));
-                const json = await res.json();
-                if(!json.success) throw new Error(json.message || 'Erro ao obter');
-                const d = json.data || {};
-                document.getElementById('configId').value = d.id || '';
-                document.getElementById('config_key').value = d.config_key || '';
-                document.getElementById('config_value').value = d.config_value || '';
-                deleteBtn.style.display = 'inline-block';
-                saveBtn.textContent = 'Atualizar';
-            }catch(err){ console.error(err); alert('Erro ao carregar configuração'); }
-        }
-
-        async function confirmDelete(id){
-            if(!confirm('Deseja excluir esta configuração?')) return;
-            try{
-                const fd = new FormData();
-                fd.append('action','delete');
-                fd.append('id', id);
-                const res = await fetch(api, { method:'POST', body: fd });
-                const json = await res.json();
-                if(!json.success) throw new Error(json.message || 'Erro ao excluir');
-                await listConfigs();
-                clearForm();
-            }catch(err){ console.error(err); alert('Erro ao excluir'); }
-        }
-
-        form.addEventListener('submit', async function(e){
-            e.preventDefault();
-            const id = document.getElementById('configId').value;
-            const key = document.getElementById('config_key').value.trim();
-            const value = document.getElementById('config_value').value.trim();
-            if(!key){ alert('Chave é obrigatória'); return; }
-            const fd = new FormData();
-            fd.append('config_key', key);
-            fd.append('config_value', value);
-            if(id){ fd.append('id', id); fd.append('action','update'); }
-            else { fd.append('action','create'); }
-
-            try{
-                const res = await fetch(api, { method:'POST', body: fd });
-                const json = await res.json();
-                if(!json.success) throw new Error(json.message || 'Erro ao salvar');
-                await listConfigs();
-                clearForm();
-            }catch(err){ console.error(err); alert('Erro ao salvar'); }
-        });
-
-        // adicionar criação de usuário
-        userForm.addEventListener('submit', async function(e){
-            e.preventDefault();
-            const username = document.getElementById('nomeUsuario').value.trim();
-            const password = document.getElementById('senhaUsuario').value;
-            const tipo = document.getElementById('tipoUsuario').value;
-            if(!username || !password){ alert('Preencha todos os campos para criar usuário'); return; }
-            try{
-                const fd = new FormData();
-                fd.append('action','create_user');
-                fd.append('nomeUsuario', username);
-                fd.append('senhaUsuario', password);
-                fd.append('tipoUsuario', tipo);
-                const res = await fetch(api, { method:'POST', body: fd });
-                const json = await res.json();
-                if(!json.success) throw new Error(json.message || 'Erro ao criar usuário');
-                alert('Usuário criado com id: ' + json.id);
-                userForm.reset();
-            }catch(err){ console.error(err); alert('Erro ao criar usuário: ' + (err.message||'')); }
-        });
-
-        clearBtn.addEventListener('click', clearForm);
-        refreshBtn.addEventListener('click', listConfigs);
-        deleteBtn.addEventListener('click', function(){
-            const id = document.getElementById('configId').value;
-            if(id) confirmDelete(id);
-        });
-
-        function clearForm(){
-            document.getElementById('configId').value = '';
-            document.getElementById('config_key').value = '';
-            document.getElementById('config_value').value = '';
-            deleteBtn.style.display = 'none';
-            saveBtn.textContent = 'Salvar';
-        }
-
-        // init
-        listConfigs();
-    </script>
 </body>
 </html>
