@@ -51,7 +51,10 @@ if (!empty($_SESSION['idUsuario'])) {
         <nav>
             <ul>
                 <li><a href="../Front">Início</a></li>
+                <?php if (!isset($user['tipoUsuario']) || $user['tipoUsuario'] == 'aluno'): ?>
+                <?php else: ?>
                 <li><a href="../Front/salas.php">Salas de aula</a></li>
+                <?php endif; ?>
                 <li><a href="../Front/materias.php">Materias</a></li>
                 <li><a href="../Front/dashboard.php">Dashboard</a></li>
                 <li><a href="../Front/perfil.php">Perfil</a></li>
