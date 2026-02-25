@@ -1,8 +1,8 @@
 <?php
-$host = "localhost:3308";
+$host = "localhost:3306";
 $user = "root";
-$password = "etec2025";
-$dbname = "myclass";
+$password = "";
+$dbname = "banco";
 
 // Criar conexão
 $conn = new mysqli($host, $user, $password, $dbname);
@@ -11,7 +11,6 @@ $conn = new mysqli($host, $user, $password, $dbname);
 if ($conn->connect_error) {
     die("Conexão falhou: " . $conn->connect_error);
 }
-
 //  ENUM('professor', 'aluno', 'direcao', 'admin')
 ?>
 

@@ -56,7 +56,7 @@ if (!empty($_SESSION['idUsuario'])) {
                 <li><a href="../Front/dashboard.php">Dashboard</a></li>
                 <li><a href="../Front/perfil.php">Perfil</a></li>
                 <li><a href="../Front/configuracoes.php">Configurações</a></li>
-                <?php if (isset($user['tipoUsuario']) && $user['tipoUsuario'] === 'dev'): ?>
+                <?php if (isset($user['tipoUsuario']) && $user['tipoUsuario'] === 'admin'): ?>
                     <li><a href="../Front/configuracoesDev.php">ConfiguraçõesDev</a></li>
                 <?php endif; ?>
                 <li><a href="../Back/logout.php">Sair</a></li>
