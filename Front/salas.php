@@ -40,11 +40,13 @@ $userRole = $_SESSION['tipoUsuario'] ?? null;
          echo '
             <div class="classroom-item">Adicionar nova turma
 
-            <button id="add-classroom"><a href="#">+</a></button>
+            <button id="add-classroom"><a href="">+</a></button>
         </div>
         ';
         } ?>
         </div>
+        
     </main>
+    <script src="../Js/modal.js"></script>
 </body>
 </html>
