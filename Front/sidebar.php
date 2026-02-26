@@ -26,7 +26,7 @@ if (!empty($_SESSION['idUsuario'])) {
 <body class="app-bg">
     <header class="homebar">
         <div class="left">
-            <button class="icon" onclick="toggleSidebar()" aria-label="Abrir menu">☰</button>
+            <button class="icon" onclick="openSidebar()" aria-label="Abrir menu">☰</button>
             <span class="logo">MyClass</span>
             <nav class="nav">
                 <a href="../Front">Início</a>
