@@ -15,6 +15,19 @@ try {
 } catch (Exception $e) {
     error_log('configuracoesDev.php users select: ' . $e->getMessage());
 }
+
+$materias = [];
+try {
+    $stmt = $conn->prepare('SELECT idMateria, nomeMateria, codigoMateria, tipo FROM materias ORDER BY idMateria DESC');
+    if ($stmt) {
+        $stmt->execute();
+        $res = $stmt->get_result();
+        while ($row = $res->fetch_assoc()) $materias[] = $row;
+        $stmt->close();
+    }
+} catch (Exception $e) {
+    error_log('configuracoesDev.php materias select: ' . $e->getMessage());
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -53,31 +66,61 @@ try {
 
         <div class="config-grid">
             <section class="card">
-                <h3>Lista de Configurações</h3>
+                <h3>Lista de Matérias</h3>
                 <div style="overflow:auto;">
                     <table class="config-table">
                         <thead>
-                            <tr><th>ID</th><th>Chave</th><th>Valor</th><th>Ações</th></tr>
+                            <tr><th>ID</th><th>Nome</th><th>Código</th><th>Tipo</th></tr>
                         </thead>
                         <tbody>
-                            <tr><td colspan="4" class="empty-state">Nenhuma configuração carregada (sem PHP)</td></tr>
+                            <?php foreach ($materias as $materia): ?>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($materia['idMateria']); ?></td>
+                                    <td><?php echo htmlspecialchars($materia['nomeMateria']); ?></td>
+                                    <td><?php echo htmlspecialchars($materia['codigoMateria']); ?></td>
+                                    <td><?php echo htmlspecialchars($materia['tipo']); ?></td>
+                                     <td>
+                                        <form method="post" action="../Back/configuracoesDev_process.php" style="display:inline;">
+                                            <input type="hidden" name="action" value="delete_user">
+                                            <input type="hidden" name="idUsuario" value="<?php echo htmlspecialchars($u['idUsuario']); ?>">
+                                            
+                                        </form>
+                                        <button type="submit" class="btn btn-ghost" onclick="return confirm('Editar usuário?')"><a style="text-decoration:none; color: inherit;" href="../Front/editarUsuario.php?id=<?php echo htmlspecialchars($u['idUsuario']); ?>">Editar</a></button>
+                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Excluir usuário?')"><a style="text-decoration:none; color: inherit;" href="../Back/configuracoesDev_process.php?action=delete_user&idUsuario=<?php echo htmlspecialchars($u['idUsuario']); ?>">Excluir</a></button>
+                                    </td>
+                                </tr>
+                                
+                            <?php endforeach; ?>
+                            <?php if (empty($materias)): ?>
+                                <tr><td colspan="4" class="empty-state">Nenhuma matéria carregada (sem PHP)</td></tr>
+                            <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
             </section>
 
             <aside class="side-panel card">
-                <h3>Criar Configuração</h3>
-                <div class="hint">Use o formulário para adicionar uma configuração (POST para backend).</div>
-                <form method="post" action="../Back/configuracoesDev_process.php">
+                <h3>Criar Matéria</h3>
+                <div class="hint">Use o formulário para adicionar uma matéria.</div>
+                <br>
+                <form method="post" action="../Back/materias_process.php">
                     <input type="hidden" name="action" value="create">
                     <div class="form-group">
-                        <label for="config_key">Chave</label>
-                        <input type="text" id="config_key" name="config_key" required>
+                        <label for="materia_name">Nome da Matéria</label>
+                        <input type="text" id="materia_name" name="materia_name" required>
                     </div>
                     <div class="form-group">
-                        <label for="config_value">Valor</label>
-                        <textarea id="config_value" name="config_value" rows="6"></textarea>
+                        <label for="materia_code">Código da Matéria</label>
+                        <input type="text" id="materia_code" name="materia_code" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="materia_tipo">Tipo</label>
+                        <select id="materia_tipo" name="materia_tipo" required>
+                            <option value="">Selecione o tipo</option>
+                            <option value="obrigatoria">Obrigatória</option>
+                            <option value="eletiva">Eletiva</option>
+                            <option value="optativa">Optativa</option>
+                        </select>
                     </div>
                     <div class="form-actions">
                         <button type="submit" class="btn btn-primary">Salvar</button>
