@@ -24,7 +24,8 @@
 }
 
 .materia-name {
-    font-size: 24px;
+    position: relative;
+    font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;
 }
@@ -42,6 +43,28 @@
     font-size: 16px;
     color: #050505;
 }
+
+.btn-edit {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+
 .materia-item:hover {
     background-color:  rgba(150, 149, 149, 0.801);
     cursor: pointer;

@@ -41,7 +41,7 @@ if (!empty($_SESSION['idUsuario'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/Materias.css">
+    <link rel="stylesheet" href="../css/materias.css">
     <title>Myclass - Detalhes da Matéria</title>
 </head>
 <body>
@@ -64,25 +64,13 @@ if (!empty($_SESSION['idUsuario'])) {
                     if ($user) {
                         $tipo = isset($user['tipoUsuario']) ? $user['tipoUsuario'] : '';
                         $isOwner = ((int)$user['idUsuario'] === (int)$materia['professorId']);
-
-                        if ($tipo === 'dev' || $tipo === 'coordenacao' || $tipo === 'admin') {
+  
+                        } elseif ($tipo === 'dev' || $tipo === 'coordenacao' || $tipo === 'admin' || $tipo === 'professor' && $isOwner) {
                             ?>
-                            <a class="btn btn-primary" href="editarMateria.php?id=<?php echo urlencode($materia['idMateria']); ?>">Editar</a>
-                            <form method="post" action="../Back/materias_process.php" style="display:inline; margin-left:8px;">
-                                <input type="hidden" name="action" value="delete">
-                                <input type="hidden" name="idMateria" value="<?php echo htmlspecialchars($materia['idMateria']); ?>">
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Confirma exclusão da matéria?')">Excluir</button>
-                            </form>
-                            <?php
-                        } elseif ($tipo === 'professor' && $isOwner) {
-                            ?>
-                            <a class="btn btn-primary" href="editarMateria.php?id=<?php echo urlencode($materia['idMateria']); ?>">Editar</a>
+                            <a class="btn-edit" href="editarMateria.php?id=<?php echo urlencode($materia['idMateria']); ?>">Editar</a>
                             <?php
                         } else {
                             echo '<span class="badge">Somente leitura</span>';
-                        }
-                    } else {
-                        echo '<a href="../Front/login.php" class="btn btn-ghost">Entrar para mais ações</a>';
                     }
                     ?>
                 </div>
