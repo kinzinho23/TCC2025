@@ -1,7 +1,7 @@
 <?php
 include '../Back/conexao.php';
 
-$stmt = $conn->prepare('SELECT m.idMateria, m.nomeMateria, m.codigoMateria, m.detalhesMateria, u.nomeUsuario AS professor FROM materias m LEFT JOIN usuario u ON m.idUsuario = u.idUsuario'
+$stmt = $conn->prepare('SELECT m.idMateria, stts, m.nomeMateria, m.codigoMateria, m.detalhesMateria, u.nomeUsuario AS professor FROM materias m LEFT JOIN usuario u ON m.idUsuario = u.idUsuario'
 );
 $stmt->execute();
 $result = $stmt->get_result();
@@ -30,7 +30,8 @@ $result = $stmt->get_result();
             echo '<div class="materia-item" onclick="window.location.href=\'materiaDetalhes.php?id=' . $row['idMateria'] . '\'">';
             echo '<h2 class="materia-name">' . htmlspecialchars($row['nomeMateria']) . '</h2>';
             echo '<h5 class="materia-info">' . htmlspecialchars($row['detalhesMateria']) . '</h5>';
-            echo '<h5>'. htmlspecialchars($row['codigoMateria']) . '</h5>';
+            echo '<h5 class="materia-codigo">'. htmlspecialchars($row['codigoMateria']) . '</h5>';
+            echo '<span class="materia-status">' . htmlspecialchars($row['stts']) . '</span>';
             echo '<h6 class="materia-professor">Prof. ' . htmlspecialchars($row['professor']) . '</h6>';
             echo '</div>';
         }

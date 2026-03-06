@@ -20,11 +20,32 @@
     border: 1px solid #ccc;
     border-radius: 10px;
     width: 350px;
-    height: 200px;
+    height: 150px;
+}
+
+.materia-status {
+    position: relative;
+    bottom: 11rem;
+    left: 37%;
+    background-color: #4b7bff;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.materia-codigo {
+    position: relative;
+    bottom: 7rem;
+    right: 28%;
+    font-size: 14px;
+    color: #050505;
 }
 
 .materia-name {
     position: relative;
+    top: -7px;
+    right: 70px;
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;
@@ -32,15 +53,18 @@
 
 .materia-info {
     position: relative;
-    top : 15px;
+    bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
     font-size: 16px;
-    color: #fffdfd;
+    color: #0000007e;
 }
 
 .materia-professor {
     position: relative;
-    top : 10px;
-    font-size: 16px;
+    bottom: 6.5rem;
+    right: 80px;
+    font-size: 14px;
     color: #050505;
 }
 
