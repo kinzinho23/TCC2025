@@ -16,6 +16,13 @@
                 s.setAttribute('aria-hidden', 'true');
             }
 
+             function toggleSidebar() {
+                var s = getSidebar();
+                if (!s) return;
+                s.classList.toggle('open');
+                s.setAttribute('aria-hidden', s.classList.contains('open') ? 'false' : 'true');
+            }
+
             window.openSidebar = openSidebar;
             window.closeSidebar = closeSidebar;
             window.toggleSidebar = toggleSidebar;

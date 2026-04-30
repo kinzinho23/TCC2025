@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/configuracoes.css">
-    <title>My Class - Configurações</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <title>My Class - Dashboard</title>
 </head>
 <body>
-    <header>
-       <?php include 'sidebar.php'; ?>
+    <header></header>
+        <?php include 'sidebar.php'; ?>
     </header>
 </body>
 </html>
