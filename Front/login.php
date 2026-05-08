@@ -14,9 +14,9 @@ session_start();
     <main>
         <h1>Login</h1>
         <form action="../Back/login_process.php" method="POST">
-            <label for="identificador">Identificação</label>
+            <label for="identificador">Nome de Usuário:</label>
             <br>
-            <input type="text" id="identificador" name="identificador" placeholder="Digite sua identificação" required>
+            <input type="text" id="identificador" name="identificador" placeholder="Digite seu nome de usuário" required>
             <br>
             <label for="password">Senha</label>
             <br>

@@ -10,7 +10,7 @@ if (!isset($_POST['identificador'], $_POST['password'])) {
 $identificador = trim($_POST['identificador']);
 $password = $_POST['password'];
 
-$sql = "SELECT idUsuario, tipoUsuario, senhaUsuario FROM usuario WHERE identificador = ?";
+$sql = "SELECT idUsuario, tipoUsuario, senhaUsuario FROM usuario WHERE nomeUsuario = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $identificador);
 $stmt->execute();

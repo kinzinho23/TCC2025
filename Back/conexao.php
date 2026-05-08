@@ -1,7 +1,7 @@
 <?php
-$host = "localhost:3306";
+$host = "localhost:3308";
 $user = "root";
-$password = "";
+$password = "etec123";
 $dbname = "banco";
 
 // Criar conexão
