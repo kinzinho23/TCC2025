@@ -10,13 +10,20 @@ if (!isset($_POST['identificador'], $_POST['password'])) {
 $identificador = trim($_POST['identificador']);
 $password = $_POST['password'];
 
-$sql = "SELECT idUsuario, tipoUsuario, senhaUsuario FROM usuario WHERE nomeUsuario = ?";
+$sql = "SELECT idUsuario, tipoUsuario, senhaUsuario 
+        FROM usuario 
+        WHERE identificador = ?";
+
 $stmt = $conn->prepare($sql);
+
 $stmt->bind_param("s", $identificador);
+
 $stmt->execute();
+
 $result = $stmt->get_result();
 
 if ($result->num_rows === 1) {
+
     $user = $result->fetch_assoc();
 
     if (password_verify($password, $user['senhaUsuario'])) {
@@ -28,12 +35,18 @@ if ($result->num_rows === 1) {
 
         header('Location: ../Front/index.php');
         exit();
+
     } else {
+
         header('Location: ../Front/login.php?error=password');
         exit();
+
     }
+
 } else {
+
     header('Location: ../Front/login.php?error=user');
     exit();
+
 }
 ?>

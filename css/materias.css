@@ -1,4 +1,3 @@
-
 #title {
     text-align: center;
     margin-top: 20px;
@@ -8,72 +7,140 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    gap: 14px;
+    padding: 10px;
 }
 
 .materia-item {
-    background-color: rgba(201, 198, 198, 0.901);
+    background: linear-gradient(
+        145deg,
+        rgba(207, 207, 207, 0.95),
+        rgba(155, 155, 155, 0.92)
+    );
+
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 14px;
+
+    width: 320px;
+    min-height: 165px;
+
+    padding: 18px;
+
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin: 20px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    width: 350px;
-    height: 150px;
+    gap: 8px;
+
+    position: relative;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.08);
+
+    transition: 0.25s ease;
+    overflow: hidden;
+}
+
+.materia-item::before {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 6px;
+    height: 100%;
+
+    background: #3b69ff;
+}
+
+.materia-item:hover {
+    transform: translateY(-4px);
+    background: rgba(218, 218, 218, 0.95);
+
+    box-shadow:
+        0 8px 18px rgba(0,0,0,0.12);
+
+    
 }
 
 .materia-status {
-    position: relative;
-    bottom: 11rem;
-    left: 37%;
-    background-color: #4b7bff;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 12px;
-}
+    position: absolute;
+    top: 14px;
+    right: 14px;
 
-.materia-codigo {
-    position: relative;
-    bottom: 7rem;
-    right: 28%;
-    font-size: 14px;
-    color: #050505;
+    background-color: #3b69ff;
+    color: white;
+
+    padding: 4px 10px;
+    border-radius: 30px;
+
+    font-size: 11px;
+    font-weight: bold;
+
+    text-transform: uppercase;
 }
 
 .materia-name {
-    position: relative;
-    top: -7px;
-    right: 70px;
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: 700;
+
+    color: #111;
+
+    margin-top: 8px;
+    max-width: 80%;
+}
+
+.materia-codigo {
+    font-size: 13px;
     font-weight: bold;
-    margin-bottom: 10px;
+
+    color: #4b4b4b;
+
+    background: rgba(255,255,255,0.5);
+
+    width: fit-content;
+
+    padding: 4px 10px;
+    border-radius: 20px;
+
+    margin-top: 2px;
 }
 
 .materia-info {
-    position: relative;
-    bottom: 1rem;
-    display: flex;
-    flex-wrap: wrap;
-    font-size: 16px;
-    color: #0000007e;
+    font-size: 14px;
+    color: rgba(0,0,0,0.6);
+
+    line-height: 1.4;
+
+    margin-top: 2px;
 }
 
 .materia-professor {
-    position: relative;
-    bottom: 6.5rem;
-    right: 80px;
+    margin-top: auto;
+
+    font-size: 13px;
+    font-weight: bold;
+
+    color: #222;
+
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.materia-professor::before {
+    content: "👨‍🏫";
     font-size: 14px;
-    color: #050505;
 }
 
 .btn-edit {
     background-color: #007bff;
     color: white;
+
     padding: 8px 16px;
+
     border: none;
     border-radius: 5px;
+
     text-decoration: none;
     margin-top: 10px;
 }
@@ -81,16 +148,12 @@
 .btn-delete {
     background-color: #dc3545;
     color: white;
+
     padding: 8px 16px;
+
     border: none;
     border-radius: 5px;
+
     text-decoration: none;
     margin-top: 10px;
-}
-
-
-.materia-item:hover {
-    background-color:  rgba(150, 149, 149, 0.801);
-    cursor: pointer;
-    transform: translateY(-3px);
 }

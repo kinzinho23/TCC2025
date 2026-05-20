@@ -14,12 +14,13 @@
 
 <body>
 
+  <!-- SIDEBAR -->
+  <?php include 'sidebar.php'; ?>
+
   <div class="container">
 
     <!-- HEADER -->
     <header class="header">
-        <!-- Lembrar de fazer a sidebar alternativel para quem tiver deslogado -->
-        <?php include 'sidebar.php'; ?>
 
       <h1>
         Bom dia, Rafael 👋

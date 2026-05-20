@@ -65,39 +65,84 @@ try {
         <?php endif; ?>
 
         <div class="config-grid">
-            <section class="card">
-                <h3>Lista de Matérias</h3>
-                <div style="overflow:auto;">
-                    <table class="config-table">
-                        <thead>
-                            <tr><th>ID</th><th>Nome</th><th>Código</th><th>Tipo</th></tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($materias as $materia): ?>
-                                <tr>
-                                    <td><?php echo htmlspecialchars($materia['idMateria']); ?></td>
-                                    <td><?php echo htmlspecialchars($materia['nomeMateria']); ?></td>
-                                    <td><?php echo htmlspecialchars($materia['codigoMateria']); ?></td>
-                                    <td><?php echo htmlspecialchars($materia['tipo']); ?></td>
-                                     <td>
-                                        <form method="post" action="../Back/configuracoesDev_process.php" style="display:inline;">
-                                            <input type="hidden" name="action" value="delete_user">
-                                            <input type="hidden" name="idUsuario" value="<?php echo htmlspecialchars($u['idUsuario']); ?>">
-                                            
-                                        </form>
-                                        <button type="submit" class="btn btn-ghost" onclick="return confirm('Editar usuário?')"><a style="text-decoration:none; color: inherit;" href="../Front/editarUsuario.php?id=<?php echo htmlspecialchars($u['idUsuario']); ?>">Editar</a></button>
-                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Excluir usuário?')"><a style="text-decoration:none; color: inherit;" href="../Back/configuracoesDev_process.php?action=delete_user&idUsuario=<?php echo htmlspecialchars($u['idUsuario']); ?>">Excluir</a></button>
-                                    </td>
-                                </tr>
-                                
-                            <?php endforeach; ?>
-                            <?php if (empty($materias)): ?>
-                                <tr><td colspan="4" class="empty-state">Nenhuma matéria carregada (sem PHP)</td></tr>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
+           <section class="card">
+    <h3>Lista de Matérias</h3>
+
+    <div style="overflow:auto;">
+
+        <table class="config-table">
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Código</th>
+                    <th>Tipo</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <?php foreach ($materias as $materia): ?>
+
+                    <tr>
+
+                        <td>
+                            <?php echo htmlspecialchars($materia['idMateria']); ?>
+                        </td>
+
+                        <td>
+                            <?php echo htmlspecialchars($materia['nomeMateria']); ?>
+                        </td>
+
+                        <td>
+                            <?php echo htmlspecialchars($materia['codigoMateria']); ?>
+                        </td>
+
+                        <td>
+                            <?php echo htmlspecialchars($materia['tipo']); ?>
+                        </td>
+
+                        <td>
+
+                            <a href="../Front/editarMateria.php?id=<?php echo htmlspecialchars($materia['idMateria']); ?>">
+                                <button type="button" class="btn btn-ghost">
+                                    Editar
+                                </button>
+                            </a>
+
+                            <a href="../Back/materias_process.php?action=delete&idMateria=<?php echo htmlspecialchars($materia['idMateria']); ?>"
+                               onclick="return confirm('Excluir matéria?')">
+
+                                <button type="button" class="btn btn-danger">
+                                    Excluir
+                                </button>
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                <?php endforeach; ?>
+
+                <?php if (empty($materias)): ?>
+
+                    <tr>
+                        <td colspan="5" class="empty-state">
+                            Nenhuma matéria carregada
+                        </td>
+                    </tr>
+
+                <?php endif; ?>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
 
             <aside class="side-panel card">
                 <h3>Criar Matéria</h3>
