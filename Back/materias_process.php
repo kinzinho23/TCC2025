@@ -1,10 +1,6 @@
 <?php
 include_once 'conexao.php';
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-	header('Location: ../Front/configuracoesDev.php?error=' . urlencode('Requisição inválida'));
-	exit;
-}
 
 $action = isset($_POST['action']) ? $_POST['action'] : '';
 
@@ -34,8 +30,31 @@ if ($action === 'create') {
 		exit;
 	}
 
+} else if ($action === 'delete') {
+	$id = isset($_POST['materia_id']) ? intval($_POST['materia_id']) : 0;
+
+	if ($id <= 0) {
+		header('Location: ../Front/configuracoesDev.php?error=' . urlencode('ID de matéria inválido'));
+		exit;
+	}
+
+    $sql = 'DELETE FROM materias WHERE idMateria = ?';
+	$stmt = $conn->prepare($sql);
+	if (!$stmt) {
+		header('Location: ../Front/configuracoesDev.php?error=' . urlencode('Erro no preparo da query'));
+		exit;
+	}
+
+	$stmt->bind_param('i', $id);
+	if ($stmt->execute()) {
+		header('Location: ../Front/configuracoesDev.php?success=' . urlencode('Matéria deletada com sucesso'));
+		exit;
+	} else {
+		header('Location: ../Front/configuracoesDev.php?error=' . urlencode('Falha ao deletar matéria'));
+		exit;
+	}
 } else {
-	header('Location: ../Front/configuracoesDev.php?error=' . urlencode('Ação não suportada'));
+	header('Location: ../Front/configuracoesDev.php?error=' . urlencode('Ação inválida'));
 	exit;
 }
 

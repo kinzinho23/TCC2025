@@ -27,17 +27,17 @@ main {
     box-shadow: 0 8px 30px rgba(7, 9, 14, 0.192);
 }
 
-label[for="username"] {
+label[for="identificador"] {
     position: relative;
     top: 25px;
-    right: 76px;
+    right: 80px;
     font-weight: bold;
 }
 
 label[for="password"] {
     position: relative;
     top: 25px;
-    right: 105px;
+    right: 110px;
     font-weight: bold;
 }
 
