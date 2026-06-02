@@ -20,7 +20,7 @@
 
     <main>
         <div class="imgHome">
-            <img src="../img/backgroundHome.svg" alt="Imagem inicial do site">
+            <img src="../img/backgroundIndex.png" alt="Imagem inicial do site">
             <div id="Title">
                 <h1>Seu gerenciador </h1>
                 <h1>de </h1>

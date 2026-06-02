@@ -29,7 +29,15 @@ header{
     margin: 0;
     padding: 0;
     width: 100%;
-    height: 849px;
+    height: calc(115vh - 70px);
+}
+
+img{
+    position: relative;
+    top: 8px;
+    width: 101%;
+    height: 100%;
+    object-fit: cover;
 }
 
 #Title{
