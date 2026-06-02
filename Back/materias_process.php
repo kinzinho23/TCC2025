@@ -1,8 +1,12 @@
 <?php
 include_once 'conexao.php';
 
-
-$action = isset($_POST['action']) ? $_POST['action'] : '';
+$action = '';
+if (isset($_POST['action'])) {
+    $action = $_POST['action'];
+} elseif (isset($_GET['action'])) {
+    $action = $_GET['action'];
+}
 
 if ($action === 'create') {
 	$nome = isset($_POST['materia_name']) ? trim($_POST['materia_name']) : '';
@@ -31,14 +35,19 @@ if ($action === 'create') {
 	}
 
 } else if ($action === 'delete') {
-	$id = isset($_POST['materia_id']) ? intval($_POST['materia_id']) : 0;
+	$id = 0;
+	if (isset($_POST['materia_id'])) {
+		$id = intval($_POST['materia_id']);
+	} elseif (isset($_GET['idMateria'])) {
+		$id = intval($_GET['idMateria']);
+	}
 
 	if ($id <= 0) {
 		header('Location: ../Front/configuracoesDev.php?error=' . urlencode('ID de matéria inválido'));
 		exit;
 	}
 
-    $sql = 'DELETE FROM materias WHERE idMateria = ?';
+	$sql = 'DELETE FROM materias WHERE idMateria = ?';
 	$stmt = $conn->prepare($sql);
 	if (!$stmt) {
 		header('Location: ../Front/configuracoesDev.php?error=' . urlencode('Erro no preparo da query'));

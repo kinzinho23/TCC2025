@@ -21,7 +21,7 @@ session_start();
             <label for="password">Senha</label>
             <br>
             <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
-            <span><a href="#">esqueci a senha</a></span>
+            <span><a href="recuperar_senha.php">esqueci a senha</a></span>
             <br>
             <button type="submit">Entrar</button>
             <?php if (isset($_GET['error'])): ?>

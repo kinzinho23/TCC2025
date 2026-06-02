@@ -1,0 +1,36 @@
+body{
+    background-color: #dcaf8b;
+    margin: 0;
+    padding: 0;
+    min-height: 86vh;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--text);
+}
+
+.box-text{
+    background-color: #f0eaea;
+    width: 57%;
+    height: 250px;
+    position: relative;
+    left: 22%;
+    top: 300px;
+    border: 1px solid #000;
+    font-size: 14px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+}
+
+button{
+    background-color: #a56835;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+}

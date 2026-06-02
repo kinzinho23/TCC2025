@@ -1,3 +1,9 @@
+<?php session_start();
+ include_once 'conexao.php';
+ 
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -23,7 +29,7 @@
     <header class="header">
 
       <h1>
-        Bom dia, Rafael 👋
+        Bom dia, <php echo isset($_SESSION['nome']) ? $_SESSION['nome'] : 'Usuário'; ?> 👋
       </h1>
 
     </header>
