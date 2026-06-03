@@ -9,7 +9,7 @@
 <body>
     <div class="box-text">
         <h1>Para recuperar sua senha, entre em contato com o administrador da sua escola.</h1>
-        <button onclick="window.location.href='index.php'">Voltar</button>
+        <button onclick="window.location.href='login.php'">Voltar</button>
     </div>
 </body>
 </html>
