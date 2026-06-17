@@ -216,6 +216,7 @@ try {
                         name="materia_tipo"
                         required
                     >
+                    
                         <option value="">Selecione o tipo</option>
                         <option value="obrigatoria">Obrigatória</option>
                         <option value="eletiva">Eletiva</option>
@@ -292,8 +293,8 @@ try {
                     <select id="tipoUsuario" name="tipoUsuario">
                         <option value="aluno">aluno</option>
                         <option value="professor">professor</option>
-                        <option value="Direcao">direção</option>
-                        <option value="dev">dev</option>
+                        <option value="coordenacao">coordenação</option>
+                        <option value="admin">admin</option>
                     </select>
 
                 </div>
