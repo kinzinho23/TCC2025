@@ -1,0 +1,277 @@
+:root {
+    --accent: #dcaf8b;
+    --bg: #f4f7fb;
+    --card: #ffffff;
+    --text: #222;
+    --muted: #6b6b6b;
+}
+
+
+body {
+
+    background: linear-gradient(180deg,#fbfbfc,var(--bg));
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    color:var(--text);
+
+}
+
+
+
+.perfil-container {
+
+    max-width:1000px;
+    margin:30px auto;
+    padding:0 16px;
+
+}
+
+
+
+.perfil-grid {
+
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:20px;
+
+}
+
+
+
+/* CARD PRINCIPAL */
+
+.perfil-header {
+
+    grid-column:1 / -1;
+
+    background:white;
+
+    border-radius:15px;
+
+    padding:25px;
+
+    display:flex;
+    align-items:center;
+
+    gap:25px;
+
+    box-shadow:0 8px 24px rgba(0,0,0,.05);
+
+    border:1px solid #eee;
+
+}
+
+
+
+.perfil-img {
+
+    width:140px;
+    height:140px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:5px solid #eeeeeea9;
+    background-color: #4e4e4e;
+
+}
+
+
+
+.perfil-header h1 {
+
+    margin:0;
+
+    font-size:32px;
+
+}
+
+
+
+.cargo {
+
+    display:inline-block;
+
+    margin-top:10px;
+
+    background:#f0e0d2;
+
+    padding:8px 18px;
+
+    border-radius:20px;
+
+    color:#8b5e3c;
+
+}
+
+
+
+/* CARDS INTERNOS */
+
+
+.card {
+
+    background:white;
+
+    border-radius:15px;
+
+    padding:22px;
+
+    box-shadow:0 8px 24px rgba(0,0,0,.05);
+
+    border:1px solid #eee;
+
+}
+
+
+
+.card h2 {
+
+    margin-top:0;
+
+    font-size:20px;
+
+}
+
+
+
+
+.linha {
+
+    display:flex;
+
+    justify-content:space-between;
+
+    padding:14px 0;
+
+    border-bottom:1px solid #eee;
+
+}
+
+
+
+.linha:last-child {
+
+    border-bottom:none;
+
+}
+
+
+
+.label {
+
+    color:var(--muted);
+
+}
+
+
+
+
+.btn {
+
+    display:inline-block;
+
+    margin-top:15px;
+
+    padding:12px 20px;
+
+    border-radius:10px;
+
+    background:var(--accent);
+
+    color:white;
+
+    text-decoration:none;
+
+}
+
+
+
+
+@media(max-width:700px){
+
+
+.perfil-grid{
+
+grid-template-columns:1fr;
+
+}
+
+
+.perfil-header{
+
+flex-direction:column;
+
+text-align:center;
+
+}
+
+}
+
+.perfil-foto{
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:15px;
+
+    padding:30px;
+
+}
+
+
+.foto-preview{
+
+    width:160px;
+    height:160px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:5px solid #252525;
+
+    box-shadow:
+    0 10px 25px rgba(0,0,0,0.35);
+
+    transition:0.3s;
+
+}
+
+
+.foto-preview:hover{
+
+    transform:scale(1.05);
+
+}
+
+
+
+.btn-primary{
+
+    cursor:pointer;
+
+    padding:10px 18px;
+
+    border-radius:10px;
+
+    background:#6c63ff;
+
+    color:white;
+
+    border:none;
+
+    transition:0.2s;
+
+}
+
+
+
+.btn-primary:hover{
+
+    transform:translateY(-2px);
+
+    filter:brightness(1.1);
+
+}

@@ -38,7 +38,7 @@ if (!empty($_SESSION['idUsuario'])) {
         <div class="actions">
             <?php if ($user): ?>
                 <button class="icon" title="Notificações">🔔</button>
-                <img src="../img/gatobobo.jpg" class="avatar" title="Usuário" alt="Avatar do Usuário">
+                <img src="../img/usuario.png" class="avatar" title="Usuário" alt="Avatar do Usuário">
             <?php else: ?>
                 <a href="../Front/login.php" class="login-btn">Login</a>
             <?php endif; ?>
