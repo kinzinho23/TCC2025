@@ -29,7 +29,7 @@
     <header class="header">
 
       <h1>
-        Bom dia, <php echo isset($_SESSION['nome']) ? $_SESSION['nome'] : 'Usuário'; ?> 👋
+        Bom dia, <?php echo isset($_SESSION['nome']) ? $_SESSION['nome'] : 'Usuário'; ?>👋
       </h1>
 
     </header>

@@ -10,7 +10,7 @@ if (!isset($_POST['identificador'], $_POST['password'])) {
 $identificador = trim($_POST['identificador']);
 $password = $_POST['password'];
 
-$sql = "SELECT idUsuario, tipoUsuario, senhaUsuario 
+$sql = "SELECT idUsuario, nomeUsuario, tipoUsuario, senhaUsuario 
         FROM usuario 
         WHERE identificador = ?";
 
@@ -32,6 +32,7 @@ if ($result->num_rows === 1) {
 
         $_SESSION['idUsuario'] = $user['idUsuario'];
         $_SESSION['tipoUsuario'] = $user['tipoUsuario'];
+        $_SESSION['nome'] = $user['nomeUsuario'];
 
         header('Location: ../Front/index.php');
         exit();
