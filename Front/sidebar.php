@@ -5,13 +5,26 @@ require_once __DIR__ . '/../Back/conexao.php';
 $user = null;
 if (!empty($_SESSION['idUsuario'])) {
     $uid = (int) $_SESSION['idUsuario'];
-    if ($stmt = $conn->prepare('SELECT idUsuario, nomeUsuario, identificador, tipoUsuario FROM usuario WHERE idUsuario = ? LIMIT 1')) {
+    if ($stmt = $conn->prepare('SELECT idUsuario, nomeUsuario, identificador, tipoUsuario, fotoUsuario FROM usuario WHERE idUsuario = ? LIMIT 1')) {
         $stmt->bind_param('i', $uid);
         $stmt->execute();
         $res = $stmt->get_result();
         $user = $res->fetch_assoc();
         $stmt->close();
     }
+}
+
+function getFotoSrc($path) {
+    if (empty($path)) {
+        return '../img/perfil/usuario.png';
+    }
+
+    $path = trim($path);
+    if (preg_match('#^(https?://|//|/|[A-Za-z]:\\\\)#', $path)) {
+        return $path;
+    }
+
+    return '../' . ltrim($path, '/.');
 }
 ?>
 
@@ -38,7 +51,8 @@ if (!empty($_SESSION['idUsuario'])) {
         <div class="actions">
             <?php if ($user): ?>
                 <button class="icon" title="Notificações">🔔</button>
-                <img src="../img/usuario.png" class="avatar" title="Usuário" alt="Avatar do Usuário">
+                <?php $avatarSrc = getFotoSrc($user['fotoUsuario']); ?>
+                <img src="<?php echo htmlspecialchars($avatarSrc); ?>" class="avatar" title="Usuário" alt="Avatar do Usuário" onerror="this.src='../img/perfil/usuario.png'">
             <?php else: ?>
                 <a href="../Front/login.php" class="login-btn">Login</a>
             <?php endif; ?>

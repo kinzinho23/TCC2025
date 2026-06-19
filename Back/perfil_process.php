@@ -4,8 +4,10 @@ session_start();
 
 require_once 'conexao.php';
 
-
-$id = $_POST['idUsuario'];
+$id = isset($_POST['idUsuario']) ? (int) $_POST['idUsuario'] : 0;
+if ($id <= 0) {
+    die('ID de usuário inválido no formulário.');
+}
 
 $nome = $_POST['nomeUsuario'];
 
@@ -139,10 +141,11 @@ if(isset($_FILES['fotoUsuario']) && $_FILES['fotoUsuario']['error'] == 0){
 
 
 
-header(
-    "Location: ../Front/perfil.php"
-);
-
+if ($id !== (int) $_SESSION['idUsuario']) {
+    header("Location: ../Front/editarUsuario.php?id={$id}");
+} else {
+    header("Location: ../Front/perfil.php");
+}
 
 exit;
 

@@ -11,14 +11,14 @@
 body {
     background: radial-gradient(circle at top left, var(--bg), var(--accent));
     margin: 0;
-    min-height: 86vh;
+    min-height: 89vh;
     font-family: Arial, Helvetica, sans-serif;
     color: var(--text);
 }
 
 main {
     background-color: var(--accent);
-    padding: 20px;
+    padding: 50px;
     text-align: center;
     border-radius: 12px;
     width: 300px;

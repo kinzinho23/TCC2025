@@ -33,6 +33,19 @@ if (!$user) {
     die("Usuário não encontrado");
 }
 
+function getFotoSrc($path) {
+    if (empty($path)) {
+        return '../img/perfil/usuario.png';
+    }
+
+    $path = trim($path);
+    if (preg_match('#^(https?://|//|/|[A-Za-z]:\\\\)#', $path)) {
+        return $path;
+    }
+
+    return '../' . ltrim($path, '/.');
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -67,9 +80,9 @@ if (!$user) {
 
 
 <img 
-src="<?php echo $user['fotoUsuario']; ?>"
+src="<?php echo htmlspecialchars(getFotoSrc($user['fotoUsuario'])); ?>"
 class="perfil-img"
-onerror="this.src='../img/usuario.png'"
+onerror="this.src='../img/perfil/usuario.png'"
 >
 
 

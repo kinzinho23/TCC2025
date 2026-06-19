@@ -366,7 +366,7 @@ try {
 
                                 <td>
 
-                                    <a href="../Front/editarUsuario.php?id=<?php echo htmlspecialchars($u['idUsuario']); ?>">
+                                    <a href="editarUsuario.php?id=<?php echo htmlspecialchars($u['idUsuario']); ?>">
                                         <button type="button" class="btn btn-ghost">
                                             Editar
                                         </button>
