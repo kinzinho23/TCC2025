@@ -3,6 +3,7 @@
 session_start();
 
 require_once '../Back/conexao.php';
+include("../Back/preferencias.php");
 
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 

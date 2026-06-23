@@ -1,119 +1,158 @@
-/* filepath: c:\TCC\TCC2025\css\configuracoes.css */
-/* Estilos para a página de configurações — paleta consistente com o site */
-:root {
-    --accent: #dcaf8b;
-    --bg: #f4f7fb;
-    --card: #ffffff;
-    --muted: #6b6b6b;
-    --text: #222222;
-    --border: #ececec;
-}
-
-body.config-page {
-    background: linear-gradient(180deg, #fbfbfc, var(--bg));
-    min-height: 100vh;
+body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-    color: var(--text);
+    background: #f4f7fb;
+    color: #222;
 }
 
-.container {
-    max-width: 1100px;
-    margin: 28px auto;
-    padding: 0 16px;
+.config-container {
+    max-width: 950px;
+    margin: 35px auto;
+    padding: 0 20px;
 }
 
-.header-row {
+.config-header {
+    background: #fff;
+    border-radius: 18px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    border: 1px solid #eee;
+}
+
+.config-header h1 {
+    margin: 0;
+    font-size: 34px;
+}
+
+.config-header p {
+    margin-top: 8px;
+    color: #666;
+}
+
+.config-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 26px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    border: 1px solid #eee;
+}
+
+.config-card h2 {
+    margin-top: 0;
+    margin-bottom: 22px;
+}
+
+.config-group {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
+    flex-direction: column;
     margin-bottom: 18px;
 }
 
-.header-row h2 { margin: 0; font-size: 20px; }
-.header-row .subtitle { color: var(--muted); font-size: 13px; }
-
-.config-grid {
-    display: grid;
-    grid-template-columns: 1fr 320px; /* painel principal + painel lateral */
-    gap: 18px;
+.config-group label {
+    font-weight: bold;
+    margin-bottom: 7px;
+    color: #333;
 }
 
-.card {
-    background: var(--card);
+.config-group select {
+    padding: 12px;
     border-radius: 12px;
-    padding: 18px;
-    box-shadow: 0 8px 24px rgba(16,24,40,0.04);
-    border: 1px solid var(--border);
+    border: 1px solid #ccc;
+    font-size: 15px;
 }
 
-/* Lista de configurações em tabela leve */
-.config-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-.config-table thead th {
-    text-align: left;
-    font-weight: 600;
-    padding: 12px 10px;
-    border-bottom: 1px solid var(--border);
-    font-size: 13px;
-}
-.config-table tbody td {
-    padding: 12px 10px;
-    border-bottom: 1px solid rgba(0,0,0,0.04);
-    font-size: 14px;
-    vertical-align: middle;
+.config-group select:focus {
+    outline: none;
+    border-color: #dcaf8b;
 }
 
-.config-actions { display: flex; gap: 8px; }
-
-/* Formulário de criação/edição */
-.form-row { display:flex; gap:8px; align-items:center; }
-.form-group { margin-bottom: 10px; }
-.form-group label { display:block; font-size:13px; color:var(--muted); margin-bottom:6px; }
-.form-group input[type="text"], .form-group input[type="password"], .form-group textarea, .form-group select {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background: #fff;
-    box-sizing: border-box;
-    font-size: 14px;
+.btn-save {
+    margin-top: 10px;
+    background: #dcaf8b;
+    color: white;
+    border: none;
+    padding: 13px 20px;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
-.form-actions { display:flex; gap:10px; margin-top:10px; }
-
-button.btn { padding: 10px 14px; border-radius: 8px; border: none; cursor: pointer; font-weight:600; }
-button.btn-primary { background: var(--accent); color: #fff; }
-button.btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--text); }
-button.btn-danger { background: #ef6a6a; color: #fff; }
-
-/* Painel lateral info/filtrar */
-.side-panel h3 { margin-top: 0; margin-bottom: 8px; }
-.side-panel .hint { color: var(--muted); font-size: 13px; }
-
-/* Empty state */
-.empty-state { text-align: center; padding: 32px 12px; color: var(--muted); }
-
-/* Pequenos badges */
-.badge { display:inline-block; padding: 6px 8px; border-radius: 999px; font-size:12px; background: rgba(220,175,139,0.12); color: var(--accent); }
-
-/* Scrollbar discreto */
-.card::-webkit-scrollbar { width: 8px; }
-.card::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.08); border-radius: 6px; }
-
-/* Alerts */
-.alert { padding: 10px 14px; border-radius: 8px; margin-bottom: 12px; font-weight:600; }
-.alert-success { background: rgba(34,139,34,0.08); color: #1a7a1a; border: 1px solid rgba(26,122,26,0.12); }
-.alert-error { background: rgba(220,53,69,0.06); color: #c53030; border: 1px solid rgba(197,66,66,0.08); }
-
-/* Responsivo */
-@media (max-width: 960px) {
-    .config-grid { grid-template-columns: 1fr; }
-    .header-row { flex-direction: column; align-items: flex-start; gap: 6px; }
+.btn-save:hover {
+    opacity: 0.9;
 }
 
-/* Pequenos ajustes visuais */
-.config-table tbody tr:hover td { background: rgba(0,0,0,0.02); }
+.admin-box,
+.limited-box {
+    padding: 16px;
+    border-radius: 14px;
+    margin: 20px 0;
+}
+
+.admin-box {
+    background: #fff0d6;
+    color: #8a5a00;
+}
+
+.limited-box {
+    background: #eeeeee;
+    color: #555;
+}
+
+.admin-box h3,
+.limited-box h3 {
+    margin-top: 0;
+}
+
+.alert {
+    padding: 12px 16px;
+    border-radius: 12px;
+    margin-bottom: 18px;
+    font-weight: bold;
+}
+
+.alert-success {
+    background: #dff7e7;
+    color: #218849;
+}
+
+.alert-error {
+    background: #ffe1e1;
+    color: #b32626;
+}
+
+body.tema-escuro {
+    background: #161616;
+    color: #f1f1f1;
+}
+
+body.tema-escuro .config-header,
+body.tema-escuro .config-card {
+    background: #222;
+    color: #f1f1f1;
+    border-color: #333;
+}
+
+body.tema-escuro .config-header p,
+body.tema-escuro .limited-box {
+    color: #cfcfcf;
+}
+
+body.tema-escuro .config-group label {
+    color: #f1f1f1;
+}
+
+body.tema-escuro .config-group select {
+    background: #2c2c2c;
+    color: #fff;
+    border-color: #555;
+}
+
+body.tema-escuro .limited-box {
+    background: #2c2c2c;
+}
+
+body.tema-escuro .admin-box {
+    background: #3a2b18;
+    color: #ffd59c;
+}

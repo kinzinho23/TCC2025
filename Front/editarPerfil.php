@@ -3,6 +3,7 @@
 session_start();
 
 require_once '../Back/conexao.php';
+include("../Back/preferencias.php");
 
 
 if(!isset($_SESSION['idUsuario'])){
@@ -84,7 +85,6 @@ enctype="multipart/form-data"
 >
 
 
-
 <input type="hidden" 
 name="idUsuario"
 value="<?php echo $user['idUsuario']; ?>"
@@ -94,7 +94,7 @@ value="<?php echo $user['idUsuario']; ?>"
 
     <img 
         id="previewFoto"
-        src="../img/usuario.png"
+        src="<?php echo htmlspecialchars(getFotoSrc($user['fotoUsuario'])); ?>"
         class="foto-preview"
         alt="Foto de perfil"
     >
@@ -104,22 +104,16 @@ value="<?php echo $user['idUsuario']; ?>"
     </label>
 
     <input 
-        type="file" 
-        id="fotoPerfil"
-        name="fotoPerfil"
-        accept="image/*"
-        hidden
-    >
+    type="file" 
+    id="fotoPerfil"
+    name="fotoUsuario"
+    accept="image/*"
+    hidden
+>
 
 </div>
 
-
-
 </div>
-
-
-
-
 
 <div class="linha">
 
@@ -132,10 +126,6 @@ value="<?php echo htmlspecialchars($user['nomeUsuario']); ?>"
 >
 
 </div>
-
-
-
-
 
 <div class="linha">
 
@@ -151,10 +141,6 @@ value="<?php echo $user['identificador']; ?>"
 
 
 </div>
-
-
-
-
 
 
 <?php if(
@@ -202,8 +188,6 @@ Admin
 
 
 
-
-
 <div class="linha">
 
 
@@ -221,8 +205,6 @@ placeholder="Deixe vazio para manter"
 
 
 
-
-
 <button class="btn">
 
 Salvar
@@ -230,16 +212,12 @@ Salvar
 </button>
 
 
-
 </form>
-
 
 </section>
 
 
-
 </main>
-
 
 <script>
 
@@ -268,6 +246,5 @@ inputFoto.addEventListener("change", function(){
 
 </script>
 </body>
-
 
 </html>

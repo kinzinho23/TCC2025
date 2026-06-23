@@ -22,28 +22,27 @@ if ($action === 'create') {
 (nomeMateria, codigoMateria, tipo, cargaHoraria, detalhesMateria, stts) 
 VALUES (?, ?, ?, ?, ?, ?)';
 
-$stmt = $conn->prepare($sql);
+	$stmt = $conn->prepare($sql);
 
-if (!$stmt) {
-	header('Location: ../Front/configuracoesDev.php?error=' . urlencode('Erro no preparo da query'));
-	exit;
-}
+	if (!$stmt) {
+		header('Location: ../Front/configuracoesDev.php?error=' . urlencode('Erro no preparo da query'));
+		exit;
+	}
 
+	$cargaHoraria = 0;
+	$detalhesMateria = '';
+	$stts = 'ativa';
 
-$cargaHoraria = 0;
-$detalhesMateria = '';
-$stts = 'ativa';
+	$stmt->bind_param(
+		'sssiss',
+		$nome,
+		$codigo,
+		$tipo,
+		$cargaHoraria,
+		$detalhesMateria,
+		$stts
+	);
 
-
-$stmt->bind_param(
-	'sssiss',
-	$nome,
-	$codigo,
-	$tipo,
-	$cargaHoraria,
-	$detalhesMateria,
-	$stts
-);
 	if ($stmt->execute()) {
 		header('Location: ../Front/configuracoesDev.php?success=' . urlencode('Matéria criada com sucesso'));
 		exit;
@@ -81,9 +80,7 @@ $stmt->bind_param(
 		exit;
 	}
 
-
 } else if ($action === 'update') {
-
 
 	$id = isset($_POST['idMateria']) ? intval($_POST['idMateria']) : 0;
 
@@ -94,14 +91,12 @@ $stmt->bind_param(
 	$detalhes = isset($_POST['detalhesMateria']) ? trim($_POST['detalhesMateria']) : '';
 	$stts = isset($_POST['stts']) ? trim($_POST['stts']) : '';
 
+	$idUsuario = !empty($_POST['idUsuario']) ? intval($_POST['idUsuario']) : null;
 
 	if ($id <= 0 || $nome === '' || $codigo === '' || $tipo === '') {
-
 		header('Location: ../Front/configuracoesDev.php?error=' . urlencode('Dados inválidos'));
 		exit;
-
 	}
-
 
 	$sql = 'UPDATE materias SET 
 			nomeMateria=?,
@@ -109,46 +104,36 @@ $stmt->bind_param(
 			tipo=?,
 			cargaHoraria=?,
 			detalhesMateria=?,
-			stts=?
+			stts=?,
+			idUsuario=?
 			WHERE idMateria=?';
-
 
 	$stmt = $conn->prepare($sql);
 
-
 	if (!$stmt) {
-
 		header('Location: ../Front/configuracoesDev.php?error=' . urlencode('Erro no preparo da atualização'));
 		exit;
-
 	}
 
-
 	$stmt->bind_param(
-		'sssissi',
+		'sssissii',
 		$nome,
 		$codigo,
 		$tipo,
 		$carga,
 		$detalhes,
 		$stts,
+		$idUsuario,
 		$id
 	);
 
-
 	if ($stmt->execute()) {
-
 		header('Location: ../Front/configuracoesDev.php?success=' . urlencode('Matéria atualizada com sucesso'));
 		exit;
-
 	} else {
-
 		header('Location: ../Front/configuracoesDev.php?error=' . urlencode('Falha ao atualizar matéria'));
 		exit;
-
 	}
-
-
 
 } else {
 	header('Location: ../Front/configuracoesDev.php?error=' . urlencode('Ação inválida'));

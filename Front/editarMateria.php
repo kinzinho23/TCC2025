@@ -1,9 +1,11 @@
 <?php
 session_start();
 require_once '../Back/conexao.php';
+include("../Back/preferencias.php");
 
 $materia = null;
 $error = null;
+$professores = [];
 
 
 if(empty($_GET['id'])){
@@ -20,6 +22,7 @@ if(empty($_GET['id'])){
             tipo,
             cargaHoraria,
             detalhesMateria,
+            idUsuario,
             stts
         FROM materias
         WHERE idMateria = ?
@@ -47,6 +50,32 @@ if(empty($_GET['id'])){
         $error = "Erro ao buscar matéria.";
     }
 
+}
+
+
+
+// Busca professores para o select
+
+$sqlProf = "
+    SELECT 
+        idUsuario, 
+        nomeUsuario 
+    FROM usuario 
+    WHERE tipoUsuario = 'professor'
+    ORDER BY nomeUsuario ASC
+";
+
+if($stmtProf = $conn->prepare($sqlProf)){
+
+    $stmtProf->execute();
+
+    $resProf = $stmtProf->get_result();
+
+    while($row = $resProf->fetch_assoc()){
+        $professores[] = $row;
+    }
+
+    $stmtProf->close();
 }
 
 ?>
@@ -202,6 +231,39 @@ Eletiva
 
 
 
+<div class="form-group">
+
+<label>
+Professor responsável
+</label>
+
+
+<select name="idUsuario">
+
+<option value="">
+Nenhum professor
+</option>
+
+
+<?php foreach($professores as $professor): ?>
+
+<option 
+value="<?php echo htmlspecialchars($professor['idUsuario']); ?>"
+<?php if((int)$materia['idUsuario'] === (int)$professor['idUsuario']) echo "selected"; ?>
+>
+<?php echo htmlspecialchars($professor['nomeUsuario']); ?>
+</option>
+
+<?php endforeach; ?>
+
+
+</select>
+
+</div>
+
+
+
+
 
 
 <div class="form-group">
@@ -233,14 +295,12 @@ Detalhes
 </label>
 
 
-<textarea name="detalhesMateria">
-
-<?php echo htmlspecialchars($materia['detalhesMateria']); ?>
-
-</textarea>
+<textarea name="detalhesMateria"><?php echo htmlspecialchars($materia['detalhesMateria']); ?></textarea>
 
 
 </div>
+
+
 
 
 

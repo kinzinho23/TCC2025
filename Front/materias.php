@@ -1,6 +1,7 @@
 <?php
 include '../Back/conexao.php';
 
+
 $stmt = $conn->prepare('SELECT m.idMateria, stts, m.nomeMateria, m.codigoMateria, m.detalhesMateria, u.nomeUsuario AS professor FROM materias m LEFT JOIN usuario u ON m.idUsuario = u.idUsuario'
 );
 $stmt->execute();

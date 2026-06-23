@@ -1,3 +1,6 @@
+<?php
+include("../Back/preferencias.php");
+?>
 <!DOCTYPE html>
 
 <html lang="pt-br">

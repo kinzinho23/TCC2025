@@ -1,9 +1,11 @@
 <?php
+
+require_once 'conexao.php';
+
+
 // criar usuario
 
 if (isset($_POST['action']) && $_POST['action'] === 'create_user') {
-
-    require_once 'conexao.php';
 
 
     $nomeUsuario = trim($_POST['nomeUsuario']);
@@ -93,5 +95,83 @@ if (isset($_POST['action']) && $_POST['action'] === 'create_user') {
 
 }
 
+
+
+// excluir usuario
+
+if (isset($_GET['action']) && $_GET['action'] === 'delete_user') {
+
+
+    $idUsuario = isset($_GET['idUsuario']) ? intval($_GET['idUsuario']) : 0;
+
+
+    if ($idUsuario <= 0) {
+
+        header('Location: ../Front/configuracoesDev.php?error=ID de usuário inválido');
+        exit();
+
+    }
+
+
+
+    // Antes de excluir, remove/desvincula relações desse usuário
+
+    // Se o usuário for professor de alguma matéria, deixa a matéria sem professor
+    $sqlMaterias = "
+    UPDATE materias
+    SET idUsuario = NULL
+    WHERE idUsuario = ?
+    ";
+
+    $stmtMaterias = $conn->prepare($sqlMaterias);
+    $stmtMaterias->bind_param("i", $idUsuario);
+    $stmtMaterias->execute();
+
+
+
+    // Se o usuário estiver em alguma carteira, remove ele da sala
+    $sqlCarteiras = "
+    DELETE FROM sala_carteiras
+    WHERE idUsuario = ?
+    ";
+
+    $stmtCarteiras = $conn->prepare($sqlCarteiras);
+    $stmtCarteiras->bind_param("i", $idUsuario);
+    $stmtCarteiras->execute();
+
+
+
+    // Agora exclui o usuário
+
+    $sqlDelete = "
+    DELETE FROM usuario
+    WHERE idUsuario = ?
+    ";
+
+    $stmtDelete = $conn->prepare($sqlDelete);
+
+    $stmtDelete->bind_param("i", $idUsuario);
+
+
+
+    if ($stmtDelete->execute()) {
+
+        header('Location: ../Front/configuracoesDev.php?success=Usuário excluído com sucesso');
+        exit();
+
+    } else {
+
+        header('Location: ../Front/configuracoesDev.php?error=Usuário não pôde ser excluído');
+        exit();
+
+    }
+
+
+}
+
+
+
+header('Location: ../Front/configuracoesDev.php?error=Ação inválida');
+exit();
 
 ?>

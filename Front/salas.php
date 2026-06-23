@@ -1,8 +1,23 @@
 <?php 
 if (session_status() === PHP_SESSION_NONE) session_start();
 include("../Back/conexao.php");
+include("../Back/preferencias.php");
 
 $userRole = $_SESSION['tipoUsuario'] ?? null;
+$podeAdicionar = in_array($userRole, ['admin', 'coordenacao']);
+
+
+$sqlSalas = "
+SELECT 
+    idSala,
+    nomeSala,
+    stts,
+    tipoSala
+FROM salas
+ORDER BY idSala ASC
+";
+
+$resultSalas = $conn->query($sqlSalas);
 ?>
 
 <!DOCTYPE html>
@@ -14,39 +29,114 @@ $userRole = $_SESSION['tipoUsuario'] ?? null;
     <title>MyClass - Salas de Aula</title>
 </head>
 <body>
-    <header>
-        <?php include 'sidebar.php'; ?>
-    </header>
-    <main>
-        <h1 id="title">Salas de Aula</h1>
 
-        <div class="classroom-list">
-            <div class="classroom-item">Turma <?php //echo $turma_id; ?>
+<header>
+    <?php include 'sidebar.php'; ?>
+</header>
 
-             <button class="enter"><a href="#">Entrar</a></button>
+<main class="salas-container">
+
+    <div class="salas-header">
+        <div>
+            <h1>Salas de Aula</h1>
+            <p>Gerencie e acesse as turmas disponíveis.</p>
         </div>
-            <div class="classroom-item">Turma <?php //echo $turma_id + 1; ?>
 
-            <button class="enter"><a href="#">Entrar</a></button>
-        </div>
-            <div class="classroom-item">Turma <?php //echo $turma_id + 2; ?>
+        <?php if ($podeAdicionar): ?>
+            <a href="adicionarSala.php" class="btn-add">+ Nova Turma</a>
+        <?php endif; ?>
+    </div>
 
-            <button class="enter"><a href="#">Entrar</a></button>
+    <?php if (!empty($_GET['success'])): ?>
+        <div class="alert alert-success">
+            <?php echo htmlspecialchars($_GET['success']); ?>
         </div>
-        <!-- lembrar de separar o Adicionar -->
-         <?php 
+    <?php endif; ?>
 
-         if (in_array($userRole, ['admin', 'coordenacao'])) {
-         echo '
-            <div class="classroom-item">Adicionar nova turma
+    <?php if (!empty($_GET['error'])): ?>
+        <div class="alert alert-error">
+            <?php echo htmlspecialchars($_GET['error']); ?>
+        </div>
+    <?php endif; ?>
 
-            <button id="add-classroom"><a href="">+</a></button>
-        </div>
-        ';
-        } ?>
-        </div>
-        
-    </main>
-    <script src="../Js/modal.js"></script>
+    <div class="classroom-list">
+
+        <?php if ($resultSalas && $resultSalas->num_rows > 0): ?>
+
+            <?php while ($sala = $resultSalas->fetch_assoc()): ?>
+
+                <?php
+                    $statusClass = 'livre';
+                    $icone = '🏫';
+
+                    if ($sala['stts'] === 'Em uso') {
+                        $statusClass = 'uso';
+                        $icone = '💻';
+                    } else if ($sala['stts'] === 'Agendada') {
+                        $statusClass = 'agendada';
+                        $icone = '📚';
+                    } else if ($sala['stts'] === 'Manutenção') {
+                        $statusClass = 'manutencao';
+                        $icone = '🛠️';
+                    }
+                ?>
+
+                <div class="classroom-card">
+                    <div class="card-top">
+                        <span class="class-icon">
+                            <?php echo $icone; ?>
+                        </span>
+
+                        <span class="status <?php echo $statusClass; ?>">
+                            <?php echo htmlspecialchars($sala['stts']); ?>
+                        </span>
+                    </div>
+
+                    <h2>
+                        <?php echo htmlspecialchars($sala['nomeSala']); ?>
+                    </h2>
+
+                    <p>Acessar ambiente da turma.</p>
+
+                    <a 
+                        href="salaDetalhe.php?id=<?php echo $sala['idSala']; ?>" 
+                        class="enter"
+                    >
+                        Entrar
+                    </a>
+                </div>
+
+            <?php endwhile; ?>
+
+        <?php else: ?>
+
+            <div class="classroom-card">
+                <div class="card-top">
+                    <span class="class-icon">🏫</span>
+                    <span class="status livre">Vazio</span>
+                </div>
+
+                <h2>Nenhuma sala cadastrada</h2>
+                <p>Crie uma nova turma para começar.</p>
+            </div>
+
+        <?php endif; ?>
+
+
+        <?php if ($podeAdicionar): ?>
+            <div class="classroom-card add-card">
+                <span class="add-icon">+</span>
+                <h2>Nova turma</h2>
+                <p>Adicionar turma ao sistema.</p>
+                <a href="adicionarSala.php" class="enter">Adicionar</a>
+            </div>
+        <?php endif; ?>
+
+    </div>
+
+</main>
+
+<script src="../Js/modal.js"></script>
+
 </body>
 </html>
