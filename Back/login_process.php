@@ -1,5 +1,7 @@
 <?php
+
 session_start();
+
 require_once 'conexao.php';
 
 if (!isset($_POST['identificador'], $_POST['password'])) {
@@ -10,9 +12,17 @@ if (!isset($_POST['identificador'], $_POST['password'])) {
 $identificador = trim($_POST['identificador']);
 $password = $_POST['password'];
 
-$sql = "SELECT idUsuario, nomeUsuario, tipoUsuario, senhaUsuario 
-        FROM usuario 
-        WHERE identificador = ?";
+$sql = "
+SELECT 
+    idUsuario, 
+    nomeUsuario, 
+    tipoUsuario, 
+    senhaUsuario,
+    telaInicial
+FROM usuario 
+WHERE identificador = ?
+LIMIT 1
+";
 
 $stmt = $conn->prepare($sql);
 
@@ -34,6 +44,32 @@ if ($result->num_rows === 1) {
         $_SESSION['tipoUsuario'] = $user['tipoUsuario'];
         $_SESSION['nome'] = $user['nomeUsuario'];
 
+        $telaInicial = $user['telaInicial'] ?? 'dashboard';
+        $tipoUsuario = $user['tipoUsuario'] ?? '';
+
+        if ($telaInicial === 'materias') {
+            header('Location: ../Front/materias.php');
+            exit();
+        }
+
+        if ($telaInicial === 'salas') {
+            header('Location: ../Front/salas.php');
+            exit();
+        }
+
+        if (
+            $telaInicial === 'configuracoesDev' &&
+            in_array($tipoUsuario, ['admin', 'coordenacao'])
+        ) {
+            header('Location: ../Front/configuracoesDev.php');
+            exit();
+        }
+
+        if ($telaInicial === 'dashboard') {
+            header('Location: ../Front/dashboard.php');
+            exit();
+        }
+
         header('Location: ../Front/index.php');
         exit();
 
@@ -50,4 +86,5 @@ if ($result->num_rows === 1) {
     exit();
 
 }
+
 ?>

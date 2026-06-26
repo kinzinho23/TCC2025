@@ -71,11 +71,6 @@ try {
             </div>
         </div>
 
-        <div>
-            <a href="#" class="btn btn-ghost">Atualizar</a>
-            <span class="badge">Dev</span>
-        </div>
-
     </div>
 
     <?php if (!empty($_GET['success'])): ?>

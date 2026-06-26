@@ -11,17 +11,27 @@ if (!$id) {
     die("ID de usuário inválido. Use ?id=NUMERO na URL. Recebido: " . ($_GET['id'] ?? 'nenhum'));
 }
 
-$sql = "SELECT idUsuario, nomeUsuario, identificador, tipoUsuario, fotoUsuario FROM usuario WHERE idUsuario = ? LIMIT 1";
-
+$sql = "
+SELECT 
+    idUsuario, 
+    nomeUsuario, 
+    identificador, 
+    tipoUsuario, 
+    fotoUsuario 
+FROM usuario 
+WHERE idUsuario = ? 
+LIMIT 1
+";
 
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id);
 $stmt->execute();
 
-
 $editUser = $stmt->get_result()->fetch_assoc();
 
-if(!$editUser) {
+$stmt->close();
+
+if (!$editUser) {
     die("Usuário não encontrado.");
 }
 
@@ -29,236 +39,188 @@ if ((int) $editUser['idUsuario'] !== $id) {
     die("Erro de consistência: usuário carregado não corresponde ao id GET.");
 }
 
-$fotoSrc = !empty($editUser['fotoUsuario']) ? '../' . ltrim($editUser['fotoUsuario'], '/') : '../img/perfil/usuario.png';
-
-
+$fotoSrc = !empty($editUser['fotoUsuario']) 
+    ? '../' . ltrim($editUser['fotoUsuario'], '/') 
+    : '../img/perfil/usuario.png';
 
 ?>
 
-
 <!DOCTYPE html>
-
 <html lang="pt-br">
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<link rel="stylesheet" href="../css/perfil.css">
+    <link rel="stylesheet" href="../css/perfil.css">
 
-<title>Editar Usuário</title>
-
+    <title>Editar Usuário</title>
 
 </head>
 
-
-<body>
-
+<body class="<?php echo ($preferencias['temaSite'] ?? 'claro') === 'escuro' ? 'tema-escuro' : ''; ?>">
 
 <header>
 
-<?php include 'sidebar.php'; ?>
+    <?php include 'sidebar.php'; ?>
 
 </header>
 
-
-
 <main class="perfil-container">
 
+    <section class="card">
 
+        <h2>Editar Usuário</h2>
 
-<section class="card">
+        <form 
+            method="POST"
+            action="../Back/perfil_process.php"
+            enctype="multipart/form-data"
+        >
 
+            <input 
+                type="hidden" 
+                name="idUsuario"
+                value="<?php echo $editUser['idUsuario']; ?>"
+            >
 
-<h2>Editar Usuário</h2>
+            <div class="perfil-foto">
 
+                <img 
+                    id="previewFoto"
+                    src="<?php echo htmlspecialchars($fotoSrc); ?>"
+                    class="foto-preview"
+                    alt="Foto de perfil"
+                    onerror="this.src='../img/perfil/usuario.png'"
+                >
 
-<form 
-method="POST"
-action="../Back/perfil_process.php"
-enctype="multipart/form-data"
->
+                <label for="fotoPerfil" class="btn btn-primary">
+                    Alterar foto
+                </label>
 
+                <input 
+                    type="file" 
+                    id="fotoPerfil"
+                    name="fotoUsuario"
+                    accept="image/*"
+                    hidden
+                >
 
+            </div>
 
-<input type="hidden" 
-name="idUsuario"
-value="<?php echo $editUser['idUsuario']; ?>"
->
+            <div class="linha">
 
-<div class="perfil-foto">
+                <label>Nome</label>
 
-    <img 
-        id="previewFoto"
-        src="<?php echo htmlspecialchars($fotoSrc); ?>"
-        class="foto-preview"
-        alt="Foto de perfil"
-        onerror="this.src='../img/usuario.png'"
-    >
+                <input 
+                    type="text"
+                    name="nomeUsuario"
+                    value="<?php echo htmlspecialchars($editUser['nomeUsuario']); ?>"
+                    required
+                >
 
-    <label for="fotoPerfil" class="btn btn-primary">
-        Alterar foto
-    </label>
+            </div>
 
-    <input 
-        type="file" 
-        id="fotoPerfil"
-        name="fotoUsuario"
-        accept="image/*"
-        hidden
-    >
+            <div class="linha">
 
-</div>
+                <label>Identificador</label>
 
+                <input 
+                    type="text"
+                    name="identificador"
+                    value="<?php echo htmlspecialchars($editUser['identificador']); ?>"
+                    required
+                >
 
+            </div>
 
-<div class="linha">
+            <div class="linha">
 
-<label>Nome</label>
+                <label>Tipo</label>
 
-<input 
-type="text"
-name="nomeUsuario"
-value="<?php echo htmlspecialchars($editUser['nomeUsuario']); ?>"
->
+                <select name="tipoUsuario">
 
-</div>
+                    <option value="aluno" <?php echo $editUser['tipoUsuario'] === 'aluno' ? 'selected' : ''; ?>>
+                        Aluno
+                    </option>
 
+                    <option value="professor" <?php echo $editUser['tipoUsuario'] === 'professor' ? 'selected' : ''; ?>>
+                        Professor
+                    </option>
 
+                    <option value="coordenacao" <?php echo $editUser['tipoUsuario'] === 'coordenacao' ? 'selected' : ''; ?>>
+                        Coordenação
+                    </option>
 
+                    <option value="admin" <?php echo $editUser['tipoUsuario'] === 'admin' ? 'selected' : ''; ?>>
+                        Admin
+                    </option>
 
+                </select>
 
-<div class="linha">
+            </div>
 
+            <div class="linha">
 
-<label>Identificador</label>
+                <label>Nova senha</label>
 
+                <input 
+                    type="password"
+                    name="senhaUsuario"
+                    placeholder="Deixe vazio para manter"
+                >
 
-<input 
-type="text"
-name="identificador"
-value="<?php echo htmlspecialchars($editUser['identificador']); ?>"
->
+            </div>
 
+            <div class="form-actions">
 
-</div>
+                <button type="submit" class="btnForm btnSalvar">
+                    Salvar
+                </button>
 
+                <button 
+                    type="button" 
+                    class="btnForm btnVoltar" 
+                    onclick="window.location.href='configuracoesDev.php'"
+                >
+                    Voltar
+                </button>
 
+            </div>
 
+        </form>
 
-
-
-<?php if(
-$editUser['tipoUsuario']=='admin' ||
-$editUser['tipoUsuario']=='coordenacao'
-): ?>
-
-
-<div class="linha">
-
-
-<label>Tipo</label>
-
-
-<select name="tipoUsuario">
-
-
-<option value="aluno" <?php echo $editUser['tipoUsuario'] === 'aluno' ? 'selected' : ''; ?>>
-Aluno
-</option>
-
-
-<option value="professor" <?php echo $editUser['tipoUsuario'] === 'professor' ? 'selected' : ''; ?>>
-Professor
-</option>
-
-
-<option value="coordenacao" <?php echo $editUser['tipoUsuario'] === 'coordenacao' ? 'selected' : ''; ?>>
-Coordenação
-</option>
-
-
-<option value="admin" <?php echo $editUser['tipoUsuario'] === 'admin' ? 'selected' : ''; ?>>
-Admin
-</option>
-
-
-</select>
-
-
-</div>
-
-
-<?php endif; ?>
-
-
-
-
-
-<div class="linha">
-
-
-<label>Nova senha</label>
-
-
-<input 
-type="password"
-name="senhaUsuario"
-placeholder="Deixe vazio para manter"
->
-
-
-</div>
-
-
-
-
-
-<button class="btn">
-
-Salvar
-
-</button>
-
-
-
-</form>
-
-
-</section>
-
-
+    </section>
 
 </main>
-
 
 <script>
 
 const inputFoto = document.getElementById("fotoPerfil");
 const preview = document.getElementById("previewFoto");
 
-
-inputFoto.addEventListener("change", function(){
+inputFoto.addEventListener("change", function() {
 
     const arquivo = this.files[0];
 
-    if(arquivo){
+    if (arquivo) {
 
         const leitor = new FileReader();
 
-        leitor.onload = function(e){
+        leitor.onload = function(e) {
 
             preview.src = e.target.result;
 
         }
 
         leitor.readAsDataURL(arquivo);
+
     }
 
 });
 
 </script>
-</body>
 
+</body>
 
 </html>

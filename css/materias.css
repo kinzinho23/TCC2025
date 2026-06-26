@@ -1,136 +1,299 @@
+/* ============================= */
+/* TELA DE MATÉRIAS */
+/* ============================= */
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f7fb;
+    color: #222;
+}
+
 #title {
     text-align: center;
     margin-top: 20px;
 }
 
-.materias-list {
+.materias-container {
+    max-width: 1150px;
+    margin: 35px auto;
+    padding: 0 20px;
+}
+
+.materias-header {
+    background: #fff;
+    border-radius: 20px;
+    padding: 28px;
+    margin-bottom: 22px;
+    border: 1px solid #eee;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+.page-badge {
+    display: inline-block;
+    background: rgba(220, 175, 139, 0.18);
+    color: #9a633b;
+    padding: 7px 13px;
+    border-radius: 999px;
+    font-weight: bold;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.materias-header h1 {
+    margin: 0;
+    font-size: 38px;
+    color: #222;
+}
+
+.materias-header p {
+    margin: 10px 0 0;
+    color: #666;
+    max-width: 720px;
+    line-height: 1.5;
+}
+
+/* RESUMO */
+
+.materias-resumo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.resumo-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 20px;
+    border: 1px solid #eee;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+
     display: flex;
-    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px;
+}
+
+.resumo-card > span {
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+    background: rgba(220, 175, 139, 0.18);
+
+    display: flex;
+    align-items: center;
     justify-content: center;
-    gap: 14px;
-    padding: 10px;
+
+    font-size: 25px;
+}
+
+.resumo-card strong {
+    display: block;
+    font-size: 28px;
+    color: #222;
+}
+
+.resumo-card p {
+    margin: 3px 0 0;
+    color: #666;
+}
+
+/* TOOLBAR */
+
+.materias-toolbar {
+    background: #fff;
+    border-radius: 18px;
+    padding: 20px;
+    margin-bottom: 22px;
+    border: 1px solid #eee;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+}
+
+.materias-toolbar h2 {
+    margin: 0;
+    color: #222;
+}
+
+.materias-toolbar p {
+    margin: 6px 0 0;
+    color: #666;
+}
+
+.materias-toolbar input {
+    width: 280px;
+    max-width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+}
+
+.materias-toolbar input:focus {
+    outline: none;
+    border-color: #dcaf8b;
+}
+
+/* LISTA DE MATÉRIAS */
+
+.materias-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 18px;
+    padding-bottom: 30px;
 }
 
 .materia-item {
-    background: linear-gradient(
-        145deg,
-        rgba(207, 207, 207, 0.95),
-        rgba(155, 155, 155, 0.92)
-    );
+    background: #fff;
+    border-radius: 20px;
+    padding: 22px;
+    border: 1px solid #eee;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
 
-    border: 1px solid rgba(255,255,255,0.3);
-    border-radius: 14px;
-
-    width: 320px;
-    min-height: 165px;
-
-    padding: 18px;
+    min-height: 250px;
 
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 12px;
 
+    cursor: pointer;
+    transition: 0.25s;
     position: relative;
-
-    box-shadow:
-        0 4px 12px rgba(0,0,0,0.08);
-
-    transition: 0.25s ease;
     overflow: hidden;
 }
 
 .materia-item::before {
     content: "";
-
     position: absolute;
-    top: 0;
-    left: 0;
-
+    inset: 0 auto 0 0;
     width: 6px;
-    height: 100%;
-
-    background: #3b69ff;
+    background: #dcaf8b;
 }
 
 .materia-item:hover {
-    transform: translateY(-4px);
-    background: rgba(218, 218, 218, 0.95);
-
-    box-shadow:
-        0 8px 18px rgba(0,0,0,0.12);
-
-    
+    transform: translateY(-5px);
+    box-shadow: 0 14px 32px rgba(0,0,0,0.10);
 }
 
-.materia-status {
-    position: absolute;
-    top: 14px;
-    right: 14px;
-
-    background-color: #3b69ff;
-    color: white;
-
-    padding: 4px 10px;
-    border-radius: 30px;
-
-    font-size: 11px;
-    font-weight: bold;
-
-    text-transform: uppercase;
+.materia-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.materia-name {
-    font-size: 18px;
-    font-weight: 700;
-
-    color: #111;
-
-    margin-top: 8px;
-    max-width: 80%;
-}
-
-.materia-codigo {
-    font-size: 13px;
-    font-weight: bold;
-
-    color: #4b4b4b;
-
-    background: rgba(255,255,255,0.5);
-
-    width: fit-content;
-
-    padding: 4px 10px;
-    border-radius: 20px;
-
-    margin-top: 2px;
-}
-
-.materia-info {
-    font-size: 14px;
-    color: rgba(0,0,0,0.6);
-
-    line-height: 1.4;
-
-    margin-top: 2px;
-}
-
-.materia-professor {
-    margin-top: auto;
-
-    font-size: 13px;
-    font-weight: bold;
-
-    color: #222;
+.materia-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 15px;
+    background: rgba(220, 175, 139, 0.18);
 
     display: flex;
     align-items: center;
-    gap: 5px;
+    justify-content: center;
+
+    font-size: 24px;
 }
 
-.materia-professor::before {
-    content: "👨‍🏫";
-    font-size: 14px;
+.materia-status {
+    display: inline-block;
+    background: #dff7e7;
+    color: #218849;
+
+    padding: 6px 12px;
+    border-radius: 999px;
+
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
 }
+
+.materia-status.inativa {
+    background: #ffe1e1;
+    color: #b32626;
+}
+
+.materia-name {
+    margin: 4px 0 0;
+    color: #222;
+    font-size: 22px;
+}
+
+.materia-info {
+    margin: 0;
+    color: #666;
+    line-height: 1.5;
+    flex: 1;
+}
+
+.materia-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.materia-tags span {
+    background: #f1f1f1;
+    color: #555;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.materia-footer {
+    margin-top: auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.materia-professor {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #222;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.abrir-materia {
+    color: #9a633b;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* EMPTY */
+
+.materias-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    background: #fff;
+    border-radius: 18px;
+    padding: 40px 20px;
+    border: 1px solid #eee;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+.materias-empty span {
+    font-size: 42px;
+}
+
+.materias-empty h2 {
+    margin-bottom: 8px;
+    color: #222;
+}
+
+.materias-empty p {
+    color: #666;
+}
+
+/* BOTÕES ANTIGOS / CONFIGURAÇÕES DEV */
 
 .btn-edit {
     background-color: #007bff;
@@ -139,10 +302,12 @@
     padding: 8px 16px;
 
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
 
     text-decoration: none;
     margin-top: 10px;
+    display: inline-block;
+    font-weight: bold;
 }
 
 .btn-delete {
@@ -152,8 +317,312 @@
     padding: 8px 16px;
 
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
 
     text-decoration: none;
     margin-top: 10px;
+    display: inline-block;
+    font-weight: bold;
+}
+
+a.btn {
+    display: inline-block;
+    padding: 10px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+a.btn-ghost {
+    background: transparent;
+    border: 1px solid #ccc;
+    color: #222;
+}
+
+/* ============================= */
+/* DETALHES DA MATÉRIA */
+/* ============================= */
+
+.materia-detalhe-container {
+    max-width: 1100px;
+    margin: 35px auto;
+    padding: 0 20px;
+}
+
+.materia-hero {
+    background: #fff;
+    border-radius: 18px;
+    padding: 28px;
+    margin-bottom: 24px;
+    border: 1px solid #eee;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.materia-hero h1 {
+    margin: 12px 0 10px;
+    font-size: 36px;
+    color: #222;
+}
+
+.materia-hero p {
+    margin: 0;
+    color: #666;
+    line-height: 1.6;
+    max-width: 760px;
+}
+
+.btn-voltar-materia {
+    background: #dcaf8b;
+    color: #fff;
+    text-decoration: none;
+    padding: 11px 18px;
+    border-radius: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.btn-voltar-materia:hover {
+    opacity: 0.9;
+}
+
+.materia-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 18px;
+    margin-bottom: 24px;
+}
+
+.materia-info-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 22px;
+    border: 1px solid #eee;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+.materia-info-card span {
+    font-size: 30px;
+}
+
+.materia-info-card small {
+    display: block;
+    margin: 12px 0 6px;
+    color: #777;
+    font-weight: bold;
+}
+
+.materia-info-card strong {
+    color: #222;
+    font-size: 18px;
+}
+
+.materia-detalhe-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 26px;
+    border: 1px solid #eee;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+.materia-section-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.materia-section-top h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #222;
+}
+
+.materia-section-top p {
+    margin: 7px 0 0;
+    color: #666;
+}
+
+.salas-vinculadas-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.sala-vinculada-item {
+    background: #f7f7f7;
+    padding: 15px;
+    border-radius: 14px;
+    text-decoration: none;
+    color: #222;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+
+    transition: 0.2s;
+}
+
+.sala-vinculada-item:hover {
+    background: rgba(220, 175, 139, 0.16);
+    transform: translateX(4px);
+}
+
+.sala-vinculada-item strong {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.sala-vinculada-item small {
+    color: #777;
+}
+
+.sala-vinculada-item span {
+    background: rgba(220, 175, 139, 0.18);
+    color: #9a633b;
+    padding: 7px 12px;
+    border-radius: 999px;
+    font-weight: bold;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.materia-empty {
+    text-align: center;
+    padding: 35px 20px;
+    color: #666;
+}
+
+.materia-empty span {
+    font-size: 42px;
+}
+
+.materia-empty h3 {
+    margin: 12px 0 8px;
+    color: #222;
+}
+
+/* ============================= */
+/* TEMA ESCURO */
+/* ============================= */
+
+body.tema-escuro {
+    background: #161616;
+    color: #f1f1f1;
+}
+
+body.tema-escuro .materias-header,
+body.tema-escuro .resumo-card,
+body.tema-escuro .materias-toolbar,
+body.tema-escuro .materia-item,
+body.tema-escuro .materias-empty,
+body.tema-escuro .materia-hero,
+body.tema-escuro .materia-info-card,
+body.tema-escuro .materia-detalhe-card {
+    background: #222 !important;
+    color: #f1f1f1 !important;
+    border-color: #333 !important;
+}
+
+body.tema-escuro .materias-header h1,
+body.tema-escuro .materias-toolbar h2,
+body.tema-escuro .resumo-card strong,
+body.tema-escuro .materia-name,
+body.tema-escuro .materia-professor,
+body.tema-escuro .materias-empty h2,
+body.tema-escuro .materia-hero h1,
+body.tema-escuro .materia-section-top h2,
+body.tema-escuro .materia-info-card strong,
+body.tema-escuro .materia-empty h3 {
+    color: #f1f1f1 !important;
+}
+
+body.tema-escuro .materias-header p,
+body.tema-escuro .materias-toolbar p,
+body.tema-escuro .resumo-card p,
+body.tema-escuro .materia-info,
+body.tema-escuro .materias-empty p,
+body.tema-escuro .materia-hero p,
+body.tema-escuro .materia-section-top p,
+body.tema-escuro .materia-info-card small,
+body.tema-escuro .materia-empty,
+body.tema-escuro .sala-vinculada-item small {
+    color: #cfcfcf !important;
+}
+
+body.tema-escuro .materia-tags span {
+    background: #2c2c2c !important;
+    color: #f1f1f1 !important;
+}
+
+body.tema-escuro .materias-toolbar input {
+    background: #2c2c2c !important;
+    color: #fff !important;
+    border-color: #555 !important;
+}
+
+body.tema-escuro .sala-vinculada-item {
+    background: #2c2c2c !important;
+    color: #f1f1f1 !important;
+}
+
+body.tema-escuro .sala-vinculada-item:hover {
+    background: #3a3028 !important;
+}
+
+body.tema-escuro .btn-edit {
+    background: #3b69ff !important;
+    color: #ffffff !important;
+}
+
+body.tema-escuro .btn-delete {
+    background: #dc3545 !important;
+    color: #ffffff !important;
+}
+
+body.tema-escuro a.btn-ghost {
+    color: #f1f1f1 !important;
+    border-color: #555 !important;
+}
+
+/* ============================= */
+/* RESPONSIVO */
+/* ============================= */
+
+@media (max-width: 760px) {
+    .materias-toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .materias-toolbar input {
+        width: 100%;
+    }
+
+    .materias-header h1 {
+        font-size: 32px;
+    }
+
+    .materia-hero {
+        flex-direction: column;
+    }
+
+    .materia-hero h1 {
+        font-size: 30px;
+    }
+
+    .btn-voltar-materia {
+        width: 100%;
+        text-align: center;
+    }
+
+    .sala-vinculada-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }

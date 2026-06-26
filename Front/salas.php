@@ -26,7 +26,7 @@ $resultSalas = $conn->query($sqlSalas);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/salas.css">
-    <title>MyClass - Salas de Aula</title>
+    <title>MyClass - Mapa de Sala</title>
 </head>
 <body>
 
@@ -38,8 +38,8 @@ $resultSalas = $conn->query($sqlSalas);
 
     <div class="salas-header">
         <div>
-            <h1>Salas de Aula</h1>
-            <p>Gerencie e acesse as turmas disponíveis.</p>
+            <h1>Mapa de sala</h1>
+            <p>Gerencie os mapas das turmas disponíveis.</p>
         </div>
 
         <?php if ($podeAdicionar): ?>

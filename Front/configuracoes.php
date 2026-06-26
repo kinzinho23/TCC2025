@@ -123,30 +123,6 @@ $userRole = $user['tipoUsuario'];
                 </select>
             </div>
 
-            <div class="config-group">
-                <label for="telaInicial">Tela inicial preferida</label>
-
-                <select name="telaInicial" id="telaInicial">
-                    <option value="dashboard" <?php if ($user['telaInicial'] === 'dashboard') echo 'selected'; ?>>
-                        Dashboard
-                    </option>
-
-                    <option value="materias" <?php if ($user['telaInicial'] === 'materias') echo 'selected'; ?>>
-                        Matérias
-                    </option>
-
-                    <option value="salas" <?php if ($user['telaInicial'] === 'salas') echo 'selected'; ?>>
-                        Salas de aula
-                    </option>
-
-                    <?php if (in_array($userRole, ['admin', 'coordenacao'])): ?>
-                        <option value="configuracoesDev" <?php if ($user['telaInicial'] === 'configuracoesDev') echo 'selected'; ?>>
-                            Configurações Dev
-                        </option>
-                    <?php endif; ?>
-                </select>
-            </div>
-
             <?php if (in_array($userRole, ['admin', 'coordenacao'])): ?>
 
                 <div class="admin-box">

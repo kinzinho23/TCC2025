@@ -4,6 +4,7 @@ ini_set('display_errors', 1);
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 session_start();
 require_once 'conexao.php';
+require_once 'notificar.php';
 
 if (!isset($_SESSION['idUsuario'])) {
     header("Location: ../Front/login.php");
@@ -85,6 +86,84 @@ $stmtInsert = $conn->prepare($sqlInsert);
 $stmtInsert->bind_param("iii", $idSala, $idUsuario, $numeroCarteira);
 
 if ($stmtInsert->execute()) {
+
+    // Busca nome do aluno
+    $sqlAluno = "
+    SELECT nomeUsuario
+    FROM usuario
+    WHERE idUsuario = ?
+    LIMIT 1
+    ";
+
+    $stmtAlunoNome = $conn->prepare($sqlAluno);
+    $stmtAlunoNome->bind_param("i", $idUsuario);
+    $stmtAlunoNome->execute();
+
+    $resAlunoNome = $stmtAlunoNome->get_result();
+    $aluno = $resAlunoNome->fetch_assoc();
+
+    $stmtAlunoNome->close();
+
+    $nomeAluno = $aluno['nomeUsuario'] ?? 'Um aluno';
+
+
+    // Busca nome da sala
+    $sqlSala = "
+    SELECT nomeSala
+    FROM salas
+    WHERE idSala = ?
+    LIMIT 1
+    ";
+
+    $stmtSalaNome = $conn->prepare($sqlSala);
+    $stmtSalaNome->bind_param("i", $idSala);
+    $stmtSalaNome->execute();
+
+    $resSalaNome = $stmtSalaNome->get_result();
+    $sala = $resSalaNome->fetch_assoc();
+
+    $stmtSalaNome->close();
+
+    $nomeSala = $sala['nomeSala'] ?? 'Sala';
+
+
+    // Link para a sala
+    $linkSala = "../Front/salaDetalhe.php?id=" . $idSala;
+
+
+    // Notificação para o próprio aluno
+    criarNotificacao(
+        $conn,
+        $idUsuario,
+        null,
+        "Você entrou na sala",
+        "Você ocupou a carteira " . $numeroCarteira . " na " . $nomeSala . ".",
+        $linkSala
+    );
+
+
+    // Notificação para admin
+    criarNotificacao(
+        $conn,
+        null,
+        "admin",
+        "Aluno entrou em uma sala",
+        $nomeAluno . " ocupou a carteira " . $numeroCarteira . " na " . $nomeSala . ".",
+        $linkSala
+    );
+
+
+    // Notificação para coordenação
+    criarNotificacao(
+        $conn,
+        null,
+        "coordenacao",
+        "Aluno entrou em uma sala",
+        $nomeAluno . " ocupou a carteira " . $numeroCarteira . " na " . $nomeSala . ".",
+        $linkSala
+    );
+
+
     header("Location: ../Front/salaDetalhe.php?id=" . $idSala . "&success=" . urlencode("Você entrou na carteira"));
     exit;
 } else {

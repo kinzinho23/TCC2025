@@ -1,0 +1,163 @@
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f7fb;
+    color: #222;
+}
+
+.notificacoes-container {
+    max-width: 950px;
+    margin: 35px auto;
+    padding: 0 20px;
+}
+
+.notificacoes-header {
+    background: #fff;
+    border-radius: 18px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    border: 1px solid #eee;
+}
+
+.notificacoes-header h1 {
+    margin: 0;
+    font-size: 34px;
+}
+
+.notificacoes-header p {
+    margin-top: 8px;
+    color: #666;
+}
+
+.notificacoes-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 22px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    border: 1px solid #eee;
+}
+
+.notificacoes-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.notificacao-item {
+    display: flex;
+    gap: 14px;
+    padding: 16px;
+    border-radius: 14px;
+    text-decoration: none;
+    color: #222;
+    background: #f7f7f7;
+    border: 1px solid transparent;
+    transition: 0.2s;
+}
+
+.notificacao-item:hover {
+    background: rgba(220, 175, 139, 0.16);
+    transform: translateX(4px);
+}
+
+.notificacao-item.nao-lida {
+    border-color: #dcaf8b;
+    background: #fff7f0;
+}
+
+.notificacao-item.lida {
+    opacity: 0.8;
+}
+
+.notificacao-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #dcaf8b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notificacao-conteudo {
+    flex: 1;
+}
+
+.notificacao-topo {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+}
+
+.notificacao-topo h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.notificacao-conteudo p {
+    margin: 7px 0;
+    color: #666;
+}
+
+.notificacao-conteudo small {
+    color: #888;
+}
+
+.badge-nova {
+    background: #dcaf8b;
+    color: white;
+    padding: 5px 9px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.notificacao-vazia {
+    text-align: center;
+    padding: 35px 20px;
+    color: #666;
+}
+
+.notificacao-vazia span {
+    font-size: 42px;
+}
+
+.notificacao-vazia h2 {
+    color: #222;
+    margin-bottom: 8px;
+}
+
+/* Tema escuro */
+
+body.tema-escuro {
+    background: #161616;
+    color: #f1f1f1;
+}
+
+body.tema-escuro .notificacoes-header,
+body.tema-escuro .notificacoes-card {
+    background: #222;
+    border-color: #333;
+}
+
+body.tema-escuro .notificacoes-header p,
+body.tema-escuro .notificacao-conteudo p,
+body.tema-escuro .notificacao-conteudo small,
+body.tema-escuro .notificacao-vazia {
+    color: #cfcfcf;
+}
+
+body.tema-escuro .notificacao-item {
+    background: #2c2c2c;
+    color: #f1f1f1;
+}
+
+body.tema-escuro .notificacao-item.nao-lida {
+    background: #3a3028;
+}
+
+body.tema-escuro .notificacao-vazia h2 {
+    color: #f1f1f1;
+}

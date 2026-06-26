@@ -50,21 +50,42 @@ if (!in_array($userRole, ['admin', 'coordenacao'])) {
                 required
             >
 
-            <label>Capacidade</label>
-            <input 
-                type="number" 
-                name="capacidade" 
-                placeholder="Ex: 30"
-                required
-            >
+          <label>Capacidade</label>
 
-            <label>Tipo da sala</label>
-            <input 
-                type="text" 
-                name="tipoSala" 
-                placeholder="Ex: Sala comum, Laboratório, Auditório"
-                required
-            >
+<input 
+    type="number" 
+    name="capacidade" 
+    placeholder="Ex: 30"
+    min="1"
+    max="30"
+    required
+>
+
+         <label>Tipo da sala</label>
+
+<select name="tipoSala" required>
+    <option value="">Selecione o tipo da sala</option>
+
+    <option value="Sala comum">
+        Sala comum
+    </option>
+
+    <option value="Laboratório">
+        Laboratório
+    </option>
+
+    <option value="Auditório">
+        Auditório
+    </option>
+
+    <option value="Biblioteca">
+        Biblioteca
+    </option>
+
+    <option value="Sala multimídia">
+        Sala multimídia
+    </option>
+</select>
 
             <label>Status</label>
             <select name="stts" required>

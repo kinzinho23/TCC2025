@@ -324,7 +324,7 @@ if (in_array($tipoUsuario, ['admin', 'coordenacao'])) {
 
             <div class="dash-card">
                 <span class="card-icon">🏫</span>
-                <h3>Salas</h3>
+                <h3>Mapas de sala</h3>
                 <strong><?php echo $totalSalas; ?></strong>
                 <p>Salas disponíveis</p>
             </div>
@@ -377,9 +377,9 @@ if (in_array($tipoUsuario, ['admin', 'coordenacao'])) {
 
             <div class="dash-card">
                 <span class="card-icon">🏫</span>
-                <h3>Salas</h3>
+                <h3>Mapas de sala</h3>
                 <strong><?php echo $totalSalas; ?></strong>
-                <p>Salas cadastradas</p>
+                <p>Mapas cadastrados</p>
             </div>
 
             <div class="dash-card">

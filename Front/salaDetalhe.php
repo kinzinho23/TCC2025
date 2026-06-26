@@ -1,5 +1,6 @@
 <?php 
 if (session_status() === PHP_SESSION_NONE) session_start();
+
 include("../Back/conexao.php");
 include("../Back/preferencias.php");
 
@@ -14,11 +15,13 @@ $nomeSala = "Turma " . $idSala;
 $statusSala = "Em uso";
 $nomeProfessor = "Vazio";
 $nomeMateria = "Vazio";
+$capacidadeSala = 12;
 
 $sqlSala = "
 SELECT 
     s.nomeSala,
     s.stts,
+    s.capacidade,
     m.nomeMateria,
     u.nomeUsuario AS nomeProfessor
 FROM salas s
@@ -31,6 +34,7 @@ LIMIT 1
 $stmtSala = $conn->prepare($sqlSala);
 
 if ($stmtSala) {
+
     $stmtSala->bind_param("i", $idSala);
     $stmtSala->execute();
 
@@ -38,8 +42,19 @@ if ($stmtSala) {
     $sala = $resSala->fetch_assoc();
 
     if ($sala) {
+
         $nomeSala = $sala['nomeSala'];
         $statusSala = $sala['stts'];
+
+        $capacidadeSala = (int) $sala['capacidade'];
+
+        if ($capacidadeSala <= 0) {
+            $capacidadeSala = 12;
+        }
+
+        if ($capacidadeSala > 30) {
+            $capacidadeSala = 30;
+        }
 
         if (!empty($sala['nomeProfessor'])) {
             $nomeProfessor = $sala['nomeProfessor'];
@@ -48,14 +63,17 @@ if ($stmtSala) {
         if (!empty($sala['nomeMateria'])) {
             $nomeMateria = $sala['nomeMateria'];
         }
+
     }
 
     $stmtSala->close();
+
 }
 
 $materiasComProfessor = [];
 
 if ($podeEditarSala) {
+
     $sqlMaterias = "
     SELECT 
         m.idMateria,
@@ -70,10 +88,13 @@ if ($podeEditarSala) {
     $resMaterias = $conn->query($sqlMaterias);
 
     if ($resMaterias) {
+
         while ($row = $resMaterias->fetch_assoc()) {
             $materiasComProfessor[] = $row;
         }
+
     }
+
 }
 
 $carteirasOcupadas = [];
@@ -91,6 +112,7 @@ ORDER BY sc.numeroCarteira ASC
 $stmt = $conn->prepare($sqlCarteiras);
 
 if ($stmt) {
+
     $stmt->bind_param("i", $idSala);
     $stmt->execute();
 
@@ -101,6 +123,7 @@ if ($stmt) {
     }
 
     $stmt->close();
+
 }
 ?>
 
@@ -109,10 +132,11 @@ if ($stmt) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyClass - Sala de Aula</title>
+    <title>MyClass - Mapa de Sala</title>
     <link rel="stylesheet" href="../css/salaDetalhe.css">
 </head>
-<body>
+
+<body class="<?php echo ($preferencias['temaSite'] ?? 'claro') === 'escuro' ? 'tema-escuro' : ''; ?>">
 
 <header>
     <?php include 'sidebar.php'; ?>
@@ -123,10 +147,12 @@ if ($stmt) {
     <section class="sala-header">
 
         <div>
+
             <h1><?php echo htmlspecialchars($nomeSala); ?></h1>
-            <p>Gerenciamento da sala de aula</p>
+            <p>Gerenciamento do mapa de sala</p>
 
             <div class="sala-info">
+
                 <span>
                     <strong>Professor:</strong> 
                     <?php echo htmlspecialchars($nomeProfessor); ?>
@@ -136,10 +162,18 @@ if ($stmt) {
                     <strong>Matéria:</strong> 
                     <?php echo htmlspecialchars($nomeMateria); ?>
                 </span>
+
+                <span>
+                    <strong>Capacidade:</strong> 
+                    <?php echo htmlspecialchars($capacidadeSala); ?> alunos
+                </span>
+
             </div>
+
         </div>
 
         <div class="header-actions">
+
             <span class="status-sala">
                 <?php echo htmlspecialchars($statusSala); ?>
             </span>
@@ -149,31 +183,47 @@ if ($stmt) {
     </section>
 
     <?php if (!empty($_GET['success'])): ?>
+
         <div class="alert alert-success">
             <?php echo htmlspecialchars($_GET['success']); ?>
         </div>
+
     <?php endif; ?>
 
     <?php if (!empty($_GET['error'])): ?>
+
         <div class="alert alert-error">
             <?php echo htmlspecialchars($_GET['error']); ?>
         </div>
+
     <?php endif; ?>
 
     <?php if ($podeEditarSala): ?>
 
         <section class="professor-card" id="form-professor">
+
             <h2>Adicionar professor e matéria</h2>
 
             <form action="../Back/adicionarProfessorSala.php" method="POST">
-                <input type="hidden" name="idSala" value="<?php echo $idSala; ?>">
 
-                <label for="idMateria">Selecione a matéria</label>
+                <input 
+                    type="hidden" 
+                    name="idSala" 
+                    value="<?php echo $idSala; ?>"
+                >
+
+                <label for="idMateria">
+                    Selecione a matéria
+                </label>
 
                 <select name="idMateria" id="idMateria" required>
-                    <option value="">Selecione uma opção</option>
+
+                    <option value="">
+                        Selecione uma opção
+                    </option>
 
                     <?php foreach ($materiasComProfessor as $materia): ?>
+
                         <option value="<?php echo $materia['idMateria']; ?>">
                             <?php 
                                 echo htmlspecialchars(
@@ -181,13 +231,17 @@ if ($stmt) {
                                 ); 
                             ?>
                         </option>
+
                     <?php endforeach; ?>
+
                 </select>
 
                 <button type="submit">
-                    Salvar na sala
+                    Salvar no mapa
                 </button>
+
             </form>
+
         </section>
 
     <?php endif; ?>
@@ -195,24 +249,27 @@ if ($stmt) {
     <section class="sala-layout">
 
         <aside class="alunos-card">
+
             <h2>Alunos</h2>
 
             <div class="alunos-lista">
 
                 <?php if (empty($carteirasOcupadas)): ?>
 
-                    <p>Nenhum aluno entrou na sala ainda.</p>
+                    <p>Nenhum aluno entrou no mapa ainda.</p>
 
                 <?php else: ?>
 
                     <?php foreach ($carteirasOcupadas as $numero => $nomeAluno): ?>
 
                         <div class="aluno-item">
+
                             <span class="avatar-mini">
                                 <?php echo strtoupper(substr($nomeAluno, 0, 1)); ?>
                             </span>
 
                             <div>
+
                                 <strong>
                                     <?php echo htmlspecialchars($nomeAluno); ?>
                                 </strong>
@@ -220,7 +277,9 @@ if ($stmt) {
                                 <small>
                                     Carteira <?php echo htmlspecialchars($numero); ?>
                                 </small>
+
                             </div>
+
                         </div>
 
                     <?php endforeach; ?>
@@ -228,6 +287,7 @@ if ($stmt) {
                 <?php endif; ?>
 
             </div>
+
         </aside>
 
         <section class="mapa-card">
@@ -238,7 +298,7 @@ if ($stmt) {
 
             <div class="carteiras-grid">
 
-                <?php for ($i = 1; $i <= 12; $i++): ?>
+                <?php for ($i = 1; $i <= $capacidadeSala; $i++): ?>
 
                     <?php if (isset($carteirasOcupadas[$i])): ?>
 

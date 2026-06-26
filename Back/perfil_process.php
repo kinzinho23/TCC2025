@@ -4,45 +4,101 @@ session_start();
 
 require_once 'conexao.php';
 
+
 $id = isset($_POST['idUsuario']) ? (int) $_POST['idUsuario'] : 0;
+
+
 if ($id <= 0) {
-    die('ID de usuário inválido no formulário.');
+
+    echo "
+    <script>
+        alert('ID de usuário inválido.');
+        window.location.href = '../Front/configuracoesDev.php';
+    </script>
+    ";
+
+    exit;
+
 }
 
-$nome = $_POST['nomeUsuario'];
 
-$identificador = $_POST['identificador'];
+
+$nome = trim($_POST['nomeUsuario'] ?? '');
+$identificador = trim($_POST['identificador'] ?? '');
+$tipoUsuario = $_POST['tipoUsuario'] ?? null;
+
+
+
+if ($nome === '' || $identificador === '') {
+
+    echo "
+    <script>
+        alert('Preencha todos os campos obrigatórios.');
+        window.location.href = '../Front/editarUsuario.php?id={$id}';
+    </script>
+    ";
+
+    exit;
+
+}
 
 
 
 // Atualiza dados básicos
 
-$sql = "
-UPDATE usuario SET
-nomeUsuario=?,
-identificador=?
-WHERE idUsuario=?
-";
+if (!empty($tipoUsuario)) {
+
+    $sql = "
+    UPDATE usuario SET
+        nomeUsuario = ?,
+        identificador = ?,
+        tipoUsuario = ?
+    WHERE idUsuario = ?
+    ";
 
 
-$stmt = $conn->prepare($sql);
+    $stmt = $conn->prepare($sql);
 
-$stmt->bind_param(
-    "ssi",
-    $nome,
-    $identificador,
-    $id
-);
+
+    $stmt->bind_param(
+        "sssi",
+        $nome,
+        $identificador,
+        $tipoUsuario,
+        $id
+    );
+
+
+} else {
+
+    $sql = "
+    UPDATE usuario SET
+        nomeUsuario = ?,
+        identificador = ?
+    WHERE idUsuario = ?
+    ";
+
+
+    $stmt = $conn->prepare($sql);
+
+
+    $stmt->bind_param(
+        "ssi",
+        $nome,
+        $identificador,
+        $id
+    );
+
+}
 
 
 $stmt->execute();
 
 
 
-
 // Atualiza senha caso tenha sido preenchida
 
-if(!empty($_POST['senhaUsuario'])){
+if (!empty($_POST['senhaUsuario'])) {
 
 
     $senha = password_hash(
@@ -53,8 +109,8 @@ if(!empty($_POST['senhaUsuario'])){
 
     $sql = "
     UPDATE usuario
-    SET senhaUsuario=?
-    WHERE idUsuario=?
+    SET senhaUsuario = ?
+    WHERE idUsuario = ?
     ";
 
 
@@ -74,18 +130,17 @@ if(!empty($_POST['senhaUsuario'])){
 
 
 
-
 // Atualiza foto
 
-if(isset($_FILES['fotoUsuario']) && $_FILES['fotoUsuario']['error'] == 0){
+if (isset($_FILES['fotoUsuario']) && $_FILES['fotoUsuario']['error'] == 0) {
 
 
     $pasta = "../img/perfil/";
 
 
-    if(!is_dir($pasta)){
+    if (!is_dir($pasta)) {
 
-        mkdir($pasta,0777,true);
+        mkdir($pasta, 0777, true);
 
     }
 
@@ -97,16 +152,13 @@ if(isset($_FILES['fotoUsuario']) && $_FILES['fotoUsuario']['error'] == 0){
     );
 
 
-    $nomeFoto = "perfil_".$id."_".time().".".$extensao;
+    $nomeFoto = "perfil_" . $id . "_" . time() . "." . $extensao;
 
 
-
-    $caminhoBanco = "img/perfil/".$nomeFoto;
-
+    $caminhoBanco = "img/perfil/" . $nomeFoto;
 
 
-    $caminhoUpload = "../".$caminhoBanco;
-
+    $caminhoUpload = "../" . $caminhoBanco;
 
 
     move_uploaded_file(
@@ -118,8 +170,8 @@ if(isset($_FILES['fotoUsuario']) && $_FILES['fotoUsuario']['error'] == 0){
 
     $sql = "
     UPDATE usuario
-    SET fotoUsuario=?
-    WHERE idUsuario=?
+    SET fotoUsuario = ?
+    WHERE idUsuario = ?
     ";
 
 
@@ -139,13 +191,28 @@ if(isset($_FILES['fotoUsuario']) && $_FILES['fotoUsuario']['error'] == 0){
 
 
 
+// Redirecionamento com pop-up
 
+if (isset($_SESSION['idUsuario']) && $id !== (int) $_SESSION['idUsuario']) {
 
-if ($id !== (int) $_SESSION['idUsuario']) {
-    header("Location: ../Front/editarUsuario.php?id={$id}");
+    echo "
+    <script>
+        alert('Usuário atualizado com sucesso!');
+        window.location.href = '../Front/configuracoesDev.php';
+    </script>
+    ";
+
 } else {
-    header("Location: ../Front/perfil.php");
+
+    echo "
+    <script>
+        alert('Perfil atualizado com sucesso!');
+        window.location.href = '../Front/perfil.php';
+    </script>
+    ";
+
 }
+
 
 exit;
 

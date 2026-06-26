@@ -275,3 +275,44 @@ text-align:center;
     filter:brightness(1.1);
 
 }
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    align-items: center;
+}
+
+.btnForm {
+    height: 42px;
+    min-width: 90px;
+    padding: 0 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    line-height: 1;
+    box-sizing: border-box;
+}
+
+.btnSalvar {
+    background: #dcaf8b;
+    color: #fff;
+    border: 1px solid #dcaf8b;
+}
+
+.btnVoltar {
+    background: transparent;
+    color: #222;
+    border: 1px solid #ccc;
+}
+
+.btnVoltar:hover {
+    background: rgba(0, 0, 0, 0.05);
+}

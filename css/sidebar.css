@@ -237,3 +237,390 @@ body {
     font-weight: bold;
     text-decoration: none;
 }
+
+.logout-icon {
+    text-decoration: none;
+    color: #222;
+    font-size: 1.2rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logout-icon:hover {
+    color: #b32626;
+}
+
+.notification-icon {
+    text-decoration: none;
+    color: #222;
+    font-size: 1.2rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notification-icon:hover {
+    color: #9a633b;
+}
+
+.logout-icon {
+    text-decoration: none;
+    color: #222;
+    font-size: 1.2rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logout-icon:hover {
+    color: #b32626;
+}
+
+.notification-icon {
+    position: relative;
+    text-decoration: none;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -7px;
+    right: -8px;
+
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+
+    background: #b32626;
+    color: white;
+
+    border-radius: 999px;
+
+    font-size: 11px;
+    font-weight: bold;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    line-height: 1;
+}
+
+body.tema-escuro {
+    background: #161616;
+    color: #f1f1f1;
+}
+
+body.tema-escuro main,
+body.tema-escuro .container,
+body.tema-escuro .perfil-container,
+body.tema-escuro .config-container,
+body.tema-escuro .salas-container,
+body.tema-escuro .sala-container,
+body.tema-escuro .dashboard-container,
+body.tema-escuro .notificacoes-container {
+    color: #f1f1f1;
+}
+
+body.tema-escuro .card,
+body.tema-escuro .config-card,
+body.tema-escuro .config-header,
+body.tema-escuro .classroom-card,
+body.tema-escuro .salas-header,
+body.tema-escuro .sala-header,
+body.tema-escuro .alunos-card,
+body.tema-escuro .mapa-card,
+body.tema-escuro .dashboard-header,
+body.tema-escuro .dash-card,
+body.tema-escuro .dashboard-section,
+body.tema-escuro .notificacoes-header,
+body.tema-escuro .notificacoes-card {
+    background: #222;
+    color: #f1f1f1;
+    border-color: #333;
+}
+
+body.tema-escuro p,
+body.tema-escuro small,
+body.tema-escuro label {
+    color: #cfcfcf;
+}
+
+body.tema-escuro input,
+body.tema-escuro select,
+body.tema-escuro textarea {
+    background: #2c2c2c;
+    color: #fff;
+    border-color: #555;
+}
+
+body.tema-escuro .mini-item,
+body.tema-escuro .aluno-item,
+body.tema-escuro .notificacao-item {
+    background: #2c2c2c;
+    color: #f1f1f1;
+}
+
+body.tema-escuro .vazia {
+    background: #2c2c2c;
+    color: #aaa;
+    border-color: #555;
+}
+
+/* ============================= */
+/* TEMA ESCURO GLOBAL - MYCLASS */
+/* ============================= */
+
+body.tema-escuro {
+    background: #161616 !important;
+    color: #f1f1f1 !important;
+}
+
+/* Textos gerais */
+body.tema-escuro h1,
+body.tema-escuro h2,
+body.tema-escuro h3,
+body.tema-escuro h4,
+body.tema-escuro p,
+body.tema-escuro label,
+body.tema-escuro small,
+body.tema-escuro span {
+    color: inherit;
+}
+
+/* Containers principais */
+body.tema-escuro main,
+body.tema-escuro .container,
+body.tema-escuro .perfil-container,
+body.tema-escuro .config-container,
+body.tema-escuro .salas-container,
+body.tema-escuro .sala-container,
+body.tema-escuro .dashboard-container,
+body.tema-escuro .notificacoes-container {
+    background: transparent;
+    color: #f1f1f1;
+}
+
+/* Cards e blocos */
+body.tema-escuro .card,
+body.tema-escuro .perfil-header,
+body.tema-escuro .config-card,
+body.tema-escuro .config-header,
+body.tema-escuro .classroom-card,
+body.tema-escuro .sala-header,
+body.tema-escuro .alunos-card,
+body.tema-escuro .mapa-card,
+body.tema-escuro .dashboard-header,
+body.tema-escuro .dash-card,
+body.tema-escuro .dashboard-section,
+body.tema-escuro .notificacoes-header,
+body.tema-escuro .notificacoes-card {
+    background: #222 !important;
+    color: #f1f1f1 !important;
+    border-color: #333 !important;
+}
+
+/* Página inicial */
+body.tema-escuro .sobre {
+    background: #222 !important;
+    color: #f1f1f1 !important;
+    border-top-color: #dcaf8b;
+}
+
+body.tema-escuro .sobre h2 {
+    color: #dcaf8b !important;
+}
+
+body.tema-escuro .sobre h3,
+body.tema-escuro .sobre p,
+body.tema-escuro .sobre li,
+body.tema-escuro .sobre-missao {
+    color: #cfcfcf !important;
+}
+
+body.tema-escuro .beneficio-item {
+    background: #2c2c2c !important;
+    color: #f1f1f1 !important;
+}
+
+body.tema-escuro .beneficio-item span,
+body.tema-escuro .beneficio-item strong {
+    color: #f1f1f1 !important;
+}
+
+/* Título da home continua visível */
+body.tema-escuro #Title h1 {
+    color: #ffffff !important;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.6);
+}
+
+/* Mapa de sala */
+body.tema-escuro .salas-header h1,
+body.tema-escuro .salas-header p {
+    color: #f1f1f1 !important;
+}
+
+body.tema-escuro .classroom-card h2 {
+    color: #f1f1f1 !important;
+}
+
+body.tema-escuro .classroom-card p {
+    color: #cfcfcf !important;
+}
+
+body.tema-escuro .add-card {
+    border-color: #dcaf8b !important;
+}
+
+/* Perfil */
+body.tema-escuro .perfil-header h1,
+body.tema-escuro .card h2 {
+    color: #f1f1f1 !important;
+}
+
+body.tema-escuro .linha {
+    border-bottom-color: #333 !important;
+}
+
+body.tema-escuro .label {
+    color: #cfcfcf !important;
+}
+
+body.tema-escuro .cargo {
+    background: #3a3028 !important;
+    color: #ffd8b5 !important;
+}
+
+/* Inputs, selects e textareas */
+body.tema-escuro input,
+body.tema-escuro select,
+body.tema-escuro textarea {
+    background: #2c2c2c !important;
+    color: #ffffff !important;
+    border-color: #555 !important;
+}
+
+body.tema-escuro input::placeholder,
+body.tema-escuro textarea::placeholder {
+    color: #aaa !important;
+}
+
+/* Botões */
+body.tema-escuro .btn,
+body.tema-escuro .btn-primary,
+body.tema-escuro .btnSalvar,
+body.tema-escuro .enter,
+body.tema-escuro .btn-add {
+    background: #dcaf8b !important;
+    color: #ffffff !important;
+    border-color: #dcaf8b !important;
+}
+
+body.tema-escuro .btnVoltar,
+body.tema-escuro .btn-ghost,
+body.tema-escuro a.btn-ghost {
+    background: transparent !important;
+    color: #f1f1f1 !important;
+    border-color: #555 !important;
+}
+
+body.tema-escuro .btnVoltar:hover,
+body.tema-escuro .btn-ghost:hover,
+body.tema-escuro a.btn-ghost:hover {
+    background: #2c2c2c !important;
+}
+
+/* Botões de editar e excluir */
+body.tema-escuro .btn-edit {
+    background: #3b69ff !important;
+    color: #ffffff !important;
+}
+
+body.tema-escuro .btn-delete {
+    background: #dc3545 !important;
+    color: #ffffff !important;
+}
+
+/* Matérias */
+body.tema-escuro .materia-item {
+    background: #222 !important;
+    border-color: #333 !important;
+    color: #f1f1f1 !important;
+}
+
+body.tema-escuro .materia-item:hover {
+    background: #2c2c2c !important;
+}
+
+body.tema-escuro .materia-name,
+body.tema-escuro .materia-professor {
+    color: #f1f1f1 !important;
+}
+
+body.tema-escuro .materia-info,
+body.tema-escuro .materia-codigo {
+    color: #cfcfcf !important;
+}
+
+body.tema-escuro .materia-codigo {
+    background: #333 !important;
+}
+
+/* Sala detalhe */
+body.tema-escuro .quadro {
+    background: #111 !important;
+    color: #ffffff !important;
+}
+
+body.tema-escuro .carteira.vazia {
+    background: #2c2c2c !important;
+    color: #aaa !important;
+    border-color: #555 !important;
+}
+
+body.tema-escuro .carteira.ocupada {
+    background: #dcaf8b !important;
+    color: #fff !important;
+}
+
+body.tema-escuro .aluno-item {
+    background: #2c2c2c !important;
+    color: #f1f1f1 !important;
+}
+
+/* Dashboard e notificações */
+body.tema-escuro .mini-item,
+body.tema-escuro .notificacao-item {
+    background: #2c2c2c !important;
+    color: #f1f1f1 !important;
+}
+
+body.tema-escuro .mini-item span,
+body.tema-escuro .notificacao-conteudo p,
+body.tema-escuro .notificacao-conteudo small {
+    color: #cfcfcf !important;
+}
+
+/* Status/badges continuam legíveis */
+body.tema-escuro .livre {
+    background: #183d26 !important;
+    color: #8dffb1 !important;
+}
+
+body.tema-escuro .uso {
+    background: #3a2b18 !important;
+    color: #ffd28a !important;
+}
+
+body.tema-escuro .agendada {
+    background: #25204d !important;
+    color: #b8b0ff !important;
+}
+
+body.tema-escuro .manutencao {
+    background: #4a1e1e !important;
+    color: #ff9c9c !important;
+}

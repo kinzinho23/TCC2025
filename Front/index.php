@@ -15,7 +15,7 @@ include("../Back/preferencias.php");
     <title>MyClass - Gerenciador de sala de aula</title>
 </head>
 
-<body>
+<body class="<?php echo ($preferencias['temaSite'] ?? 'claro') === 'escuro' ? 'tema-escuro' : ''; ?>">
     <header>
         <!-- Lembrar de fazer a sidebar alternativel para quem tiver deslogado -->
         <?php include 'sidebar.php'; ?>
