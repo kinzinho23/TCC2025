@@ -6,7 +6,7 @@ require_once '../Back/conexao.php';
 include("../Back/preferencias.php");
 
 
-if(!isset($_SESSION['idUsuario'])){
+if (!isset($_SESSION['idUsuario'])) {
     header("Location: login.php");
     exit;
 }
@@ -29,7 +29,7 @@ LIMIT 1
 
 
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("i",$idUsuario);
+$stmt->bind_param("i", $idUsuario);
 $stmt->execute();
 
 
@@ -46,11 +46,10 @@ $user = $stmt->get_result()->fetch_assoc();
 
 <head>
 
-<meta charset="UTF-8">
-
-<link rel="stylesheet" href="../css/perfil.css">
-
-<title>Editar perfil</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/perfil.css">
+    <link rel="shortcut icon" href="../img/favicon.ico"type="image/x-icon">
+    <title>Editar perfil</title>
 
 
 </head>
@@ -59,192 +58,163 @@ $user = $stmt->get_result()->fetch_assoc();
 <body>
 
 
-<header>
+    <header>
 
-<?php include 'sidebar.php'; ?>
+        <?php include 'sidebar.php'; ?>
 
-</header>
+    </header>
 
 
 
-<main class="perfil-container">
+    <main class="perfil-container">
 
 
 
-<section class="card">
+        <section class="card">
 
 
-<h2>Editar perfil</h2>
+            <h2>Editar perfil</h2>
 
 
 
-<form 
-method="POST"
-action="../Back/perfil_process.php"
-enctype="multipart/form-data"
->
+            <form method="POST" action="../Back/perfil_process.php" enctype="multipart/form-data">
 
 
-<input type="hidden" 
-name="idUsuario"
-value="<?php echo $user['idUsuario']; ?>"
->
+                <input type="hidden" name="idUsuario" value="<?php echo $user['idUsuario']; ?>">
 
-<div class="perfil-foto">
+                <div class="perfil-foto">
 
-    <img 
-        id="previewFoto"
-        src="<?php echo htmlspecialchars(getFotoSrc($user['fotoUsuario'])); ?>"
-        class="foto-preview"
-        alt="Foto de perfil"
-    >
+                    <img id="previewFoto" src="<?php echo htmlspecialchars(getFotoSrc($user['fotoUsuario'])); ?>"
+                        class="foto-preview" alt="Foto de perfil">
 
-    <label for="fotoPerfil" class="btn btn-primary">
-        Alterar foto
-    </label>
+                    <label for="fotoPerfil" class="btn btn-primary">
+                        Alterar foto
+                    </label>
 
-    <input 
-    type="file" 
-    id="fotoPerfil"
-    name="fotoUsuario"
-    accept="image/*"
-    hidden
->
+                    <input type="file" id="fotoPerfil" name="fotoUsuario" accept="image/*" hidden>
 
-</div>
+                </div>
 
-</div>
+                </div>
 
-<div class="linha">
+                <div class="linha">
 
-<label>Nome</label>
+                    <label>Nome</label>
 
-<input 
-type="text"
-name="nomeUsuario"
-value="<?php echo htmlspecialchars($user['nomeUsuario']); ?>"
->
+                    <input type="text" name="nomeUsuario" value="<?php echo htmlspecialchars($user['nomeUsuario']); ?>">
 
-</div>
+                </div>
 
-<div class="linha">
+                <div class="linha">
 
 
-<label>Identificador</label>
+                    <label>Identificador</label>
 
 
-<input 
-type="text"
-name="identificador"
-value="<?php echo $user['identificador']; ?>"
->
+                    <input type="text" name="identificador" value="<?php echo $user['identificador']; ?>">
 
 
-</div>
+                </div>
 
 
-<?php if(
-$user['tipoUsuario']=='admin' ||
-$user['tipoUsuario']=='coordenacao'
-): ?>
+                <?php if (
+                    $user['tipoUsuario'] == 'admin' ||
+                    $user['tipoUsuario'] == 'coordenacao'
+                ): ?>
 
 
-<div class="linha">
+                    <div class="linha">
 
 
-<label>Tipo</label>
+                        <label>Tipo</label>
 
 
-<select name="tipoUsuario">
+                        <select name="tipoUsuario">
 
 
-<option value="aluno">
-Aluno
-</option>
+                            <option value="aluno">
+                                Aluno
+                            </option>
 
 
-<option value="professor">
-Professor
-</option>
+                            <option value="professor">
+                                Professor
+                            </option>
 
 
-<option value="coordenacao">
-Coordenação
-</option>
+                            <option value="coordenacao">
+                                Coordenação
+                            </option>
 
 
-<option value="admin">
-Admin
-</option>
+                            <option value="admin">
+                                Admin
+                            </option>
 
 
-</select>
+                        </select>
 
 
-</div>
+                    </div>
 
 
-<?php endif; ?>
+                <?php endif; ?>
 
 
 
-<div class="linha">
+                <div class="linha">
 
 
-<label>Nova senha</label>
+                    <label>Nova senha</label>
 
 
-<input 
-type="password"
-name="senhaUsuario"
-placeholder="Deixe vazio para manter"
->
+                    <input type="password" name="senhaUsuario" placeholder="Deixe vazio para manter">
 
 
-</div>
+                </div>
 
 
 
-<button class="btn">
+                <button class="btn">
 
-Salvar
+                    Salvar
 
-</button>
+                </button>
 
 
-</form>
+            </form>
 
-</section>
+        </section>
 
 
-</main>
+    </main>
 
-<script>
+    <script>
 
-const inputFoto = document.getElementById("fotoPerfil");
-const preview = document.getElementById("previewFoto");
+        const inputFoto = document.getElementById("fotoPerfil");
+        const preview = document.getElementById("previewFoto");
 
 
-inputFoto.addEventListener("change", function(){
+        inputFoto.addEventListener("change", function () {
 
-    const arquivo = this.files[0];
+            const arquivo = this.files[0];
 
-    if(arquivo){
+            if (arquivo) {
 
-        const leitor = new FileReader();
+                const leitor = new FileReader();
 
-        leitor.onload = function(e){
+                leitor.onload = function (e) {
 
-            preview.src = e.target.result;
+                    preview.src = e.target.result;
 
-        }
+                }
 
-        leitor.readAsDataURL(arquivo);
-    }
+                leitor.readAsDataURL(arquivo);
+            }
 
-});
+        });
 
-</script>
+    </script>
 </body>
 
 </html>

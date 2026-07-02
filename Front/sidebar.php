@@ -110,9 +110,9 @@ if ($user) {
         </span>
 
         <nav class="nav">
-            <a href="../Front/index.php">Início</a>
-            <a href="../Front/projetos.php">Projetos</a>
-            <a href="../Front/contato.php">Contato</a>
+            <!-- <a href="../Front/index.php">Início</a> -->
+            <!-- <a href="../Front/projetos.php">Projetos</a> -->
+            <!-- <a href="../Front/contato.php">Contato</a> -->
         </nav>
 
     </div>

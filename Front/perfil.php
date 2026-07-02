@@ -37,7 +37,8 @@ if (!$user) {
     die("Usuário não encontrado");
 }
 
-function getFotoSrc($path) {
+function getFotoSrc($path)
+{
     if (empty($path)) {
         return '../img/perfil/usuario.png';
     }
@@ -54,12 +55,15 @@ function getFotoSrc($path) {
 
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="../css/perfil.css">
 
-<title>MyClass - Perfil</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/perfil.css">
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
+
+
+    <title>MyClass - Perfil</title>
 
 </head>
 
@@ -67,110 +71,107 @@ function getFotoSrc($path) {
 <body>
 
 
-<header>
+    <header>
 
-<?php include 'sidebar.php'; ?>
+        <?php include 'sidebar.php'; ?>
 
-</header>
-
-
-<main class="perfil-container">
+    </header>
 
 
-<div class="perfil-grid">
+    <main class="perfil-container">
 
 
-<section class="perfil-header">
+        <div class="perfil-grid">
 
 
-<img 
-src="<?php echo htmlspecialchars(getFotoSrc($user['fotoUsuario'])); ?>"
-class="perfil-img"
-onerror="this.src='../img/perfil/usuario.png'"
->
+            <section class="perfil-header">
 
 
-<div>
-
-<h1>
-<?php echo htmlspecialchars($user['nomeUsuario']); ?>
-</h1>
+                <img src="<?php echo htmlspecialchars(getFotoSrc($user['fotoUsuario'])); ?>" class="perfil-img"
+                    onerror="this.src='../img/perfil/usuario.png'">
 
 
-<span class="cargo">
-<?php echo htmlspecialchars($user['tipoUsuario']); ?>
-</span>
+                <div>
+
+                    <h1>
+                        <?php echo htmlspecialchars($user['nomeUsuario']); ?>
+                    </h1>
 
 
-</div>
+                    <span class="cargo">
+                        <?php echo htmlspecialchars($user['tipoUsuario']); ?>
+                    </span>
 
 
-</section>
+                </div>
+
+
+            </section>
 
 
 
-<section class="card">
+            <section class="card">
 
-<h2>Informações pessoais</h2>
-
-
-<div class="linha">
-<span class="label">ID</span>
-<?php echo $user['idUsuario']; ?>
-</div>
+                <h2>Informações pessoais</h2>
 
 
-<div class="linha">
-<span class="label">Nome</span>
-<?php echo $user['nomeUsuario']; ?>
-</div>
+                <div class="linha">
+                    <span class="label">ID</span>
+                    <?php echo $user['idUsuario']; ?>
+                </div>
 
 
-<div class="linha">
-<span class="label">Identificador</span>
-<?php echo $user['identificador']; ?>
-</div>
+                <div class="linha">
+                    <span class="label">Nome</span>
+                    <?php echo $user['nomeUsuario']; ?>
+                </div>
 
 
-<div class="linha">
-<span class="label">Tipo</span>
-<?php echo $user['tipoUsuario']; ?>
-</div>
+                <div class="linha">
+                    <span class="label">Identificador</span>
+                    <?php echo $user['identificador']; ?>
+                </div>
 
 
-</section>
+                <div class="linha">
+                    <span class="label">Tipo</span>
+                    <?php echo $user['tipoUsuario']; ?>
+                </div>
+
+
+            </section>
 
 
 
 
-<section class="card">
+            <section class="card">
 
-<h2>Ações</h2>
-
-
-<p>
-Configurações disponíveis para seu usuário.
-</p>
+                <h2>Ações</h2>
 
 
-<?php if($user['tipoUsuario']=='admin' || $user['tipoUsuario']=='coordenacao'): ?>
+                <p>
+                    Configurações disponíveis para seu usuário.
+                </p>
 
 
-<a class="btn" href="editarPerfil.php?id=<?php echo $user['idUsuario']; ?>">
-Editar perfil
-</a>
+                <?php if ($user['tipoUsuario'] == 'admin' || $user['tipoUsuario'] == 'coordenacao'): ?>
 
 
-<?php endif; ?>
+                    <a class="btn" href="editarPerfil.php?id=<?php echo $user['idUsuario']; ?>">
+                        Editar perfil
+                    </a>
 
 
-</section>
+                <?php endif; ?>
 
 
-</div>
+            </section>
 
 
-</main>
+        </div>
+
+
+    </main>
 
 
 </body>

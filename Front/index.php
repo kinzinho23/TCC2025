@@ -12,6 +12,8 @@ include("../Back/preferencias.php");
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/Home.css">
+    <link rel="shortcut icon" href="../img/favicon.ico"type="image/x-icon">
+
     <title>MyClass - Gerenciador de sala de aula</title>
 </head>
 

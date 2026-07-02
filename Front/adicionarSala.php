@@ -18,6 +18,7 @@ if (!in_array($userRole, ['admin', 'coordenacao'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyClass - Adicionar Sala</title>
     <link rel="stylesheet" href="../css/salas.css">
+    <link rel="shortcut icon" href="../img/favicon.ico"type="image/x-icon">
 </head>
 <body>
 

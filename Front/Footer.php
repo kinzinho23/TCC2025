@@ -1,4 +1,6 @@
 <link rel="stylesheet" href="../css/Footer.css">
+<link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
+
 <footer class="site-footer" role="contentinfo">
 	<div class="footer-container">
 		<div class="footer-col footer-brand">
@@ -27,4 +29,3 @@
 		<p>&copy; <?php echo date('Y'); ?> MyClass. Todos os direitos reservados.</p>
 	</div>
 </footer>
-

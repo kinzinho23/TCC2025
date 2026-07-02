@@ -50,6 +50,7 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/configuracoesDev.css">
+    <link rel="shortcut icon" href="../img/favicon.ico"type="image/x-icon">  
     <title>MyClass - Configurações de Desenvolvedor</title>
 </head>
 

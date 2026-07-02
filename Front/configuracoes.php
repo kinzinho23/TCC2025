@@ -47,6 +47,8 @@ $userRole = $user['tipoUsuario'];
     <meta charset="UTF-8">
     <title>MyClass - Configurações</title>
     <link rel="stylesheet" href="../css/configuracoes.css">
+    <link rel="shortcut icon" href="../img/favicon.ico"type="image/x-icon">
+
 </head>
 <body class="<?php echo ($preferencias['temaSite'] ?? 'claro') === 'escuro' ? 'tema-escuro' : ''; ?>">
 

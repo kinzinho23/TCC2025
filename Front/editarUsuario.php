@@ -51,9 +51,8 @@ $fotoSrc = !empty($editUser['fotoUsuario'])
 <head>
 
     <meta charset="UTF-8">
-
     <link rel="stylesheet" href="../css/perfil.css">
-
+    <link rel="shortcut icon" href="../img/favicon.ico"type="image/x-icon">
     <title>Editar Usuário</title>
 
 </head>

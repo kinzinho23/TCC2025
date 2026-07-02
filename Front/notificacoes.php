@@ -90,6 +90,7 @@ $stmtLidas->close();
     <meta charset="UTF-8">
     <title>MyClass - Notificações</title>
     <link rel="stylesheet" href="../css/notificacoes.css">
+    <link rel="shortcut icon" href="../img/favicon.ico"type="image/x-icon">
 </head>
 
 <body class="<?php echo ($preferencias['temaSite'] ?? 'claro') === 'escuro' ? 'tema-escuro' : ''; ?>">

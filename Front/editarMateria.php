@@ -8,11 +8,11 @@ $error = null;
 $professores = [];
 
 
-if(empty($_GET['id'])){
+if (empty($_GET['id'])) {
     $error = "Matéria não informada.";
-}else{
+} else {
 
-    $id = (int)$_GET['id'];
+    $id = (int) $_GET['id'];
 
     $sql = "
         SELECT 
@@ -29,9 +29,9 @@ if(empty($_GET['id'])){
     ";
 
 
-    if($stmt = $conn->prepare($sql)){
+    if ($stmt = $conn->prepare($sql)) {
 
-        $stmt->bind_param("i",$id);
+        $stmt->bind_param("i", $id);
         $stmt->execute();
 
         $res = $stmt->get_result();
@@ -41,12 +41,12 @@ if(empty($_GET['id'])){
         $stmt->close();
 
 
-        if(!$materia){
+        if (!$materia) {
             $error = "Matéria não encontrada.";
         }
 
 
-    }else{
+    } else {
         $error = "Erro ao buscar matéria.";
     }
 
@@ -65,13 +65,13 @@ $sqlProf = "
     ORDER BY nomeUsuario ASC
 ";
 
-if($stmtProf = $conn->prepare($sqlProf)){
+if ($stmtProf = $conn->prepare($sqlProf)) {
 
     $stmtProf->execute();
 
     $resProf = $stmtProf->get_result();
 
-    while($row = $resProf->fetch_assoc()){
+    while ($row = $resProf->fetch_assoc()) {
         $professores[] = $row;
     }
 
@@ -86,12 +86,12 @@ if($stmtProf = $conn->prepare($sqlProf)){
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/configuracoesDev.css">
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
 
-<link rel="stylesheet" href="../css/configuracoesDev.css">
-
-<title>Editar Matéria</title>
+    <title>Editar Matéria</title>
 
 </head>
 
@@ -99,280 +99,255 @@ if($stmtProf = $conn->prepare($sqlProf)){
 <body class="config-page <?php echo ($preferencias['temaSite'] ?? 'claro') === 'escuro' ? 'tema-escuro' : ''; ?>">
 
 
-<header>
+    <header>
 
-<?php include 'sidebar.php'; ?>
+        <?php include 'sidebar.php'; ?>
 
-</header>
+    </header>
 
 
 
-<main class="container">
+    <main class="container">
 
 
-<?php if($error): ?>
+        <?php if ($error): ?>
 
 
-<div class="alert alert-error">
+            <div class="alert alert-error">
 
-<?php echo htmlspecialchars($error); ?>
+                <?php echo htmlspecialchars($error); ?>
 
-</div>
+            </div>
 
 
-<?php else: ?>
+        <?php else: ?>
 
 
 
-<section class="card">
+            <section class="card">
 
 
-<h2>
-Editar Matéria
-</h2>
+                <h2>
+                    Editar Matéria
+                </h2>
 
 
 
-<form method="POST" action="../Back/materias_process.php">
+                <form method="POST" action="../Back/materias_process.php">
 
 
 
-<input 
-type="hidden"
-name="action"
-value="update">
+                    <input type="hidden" name="action" value="update">
 
 
 
-<input 
-type="hidden"
-name="idMateria"
-value="<?php echo $materia['idMateria']; ?>">
+                    <input type="hidden" name="idMateria" value="<?php echo $materia['idMateria']; ?>">
 
 
 
-<div class="form-group">
+                    <div class="form-group">
 
-<label>
-Nome da matéria
-</label>
+                        <label>
+                            Nome da matéria
+                        </label>
 
 
-<input
-type="text"
-name="nomeMateria"
-value="<?php echo htmlspecialchars($materia['nomeMateria']); ?>"
-required>
+                        <input type="text" name="nomeMateria"
+                            value="<?php echo htmlspecialchars($materia['nomeMateria']); ?>" required>
 
-</div>
+                    </div>
 
 
 
 
-<div class="form-group">
+                    <div class="form-group">
 
-<label>
-Código
-</label>
+                        <label>
+                            Código
+                        </label>
 
 
-<input
-type="text"
-name="codigoMateria"
-value="<?php echo htmlspecialchars($materia['codigoMateria']); ?>"
-required>
+                        <input type="text" name="codigoMateria"
+                            value="<?php echo htmlspecialchars($materia['codigoMateria']); ?>" required>
 
-</div>
+                    </div>
 
 
 
 
 
-<div class="form-group">
+                    <div class="form-group">
 
 
-<label>
-Tipo
-</label>
+                        <label>
+                            Tipo
+                        </label>
 
 
-<select name="tipo">
+                        <select name="tipo">
 
 
-<option 
-value="obrigatoria"
-<?php if($materia['tipo']=="obrigatoria") echo "selected"; ?>
->
-Obrigatória
-</option>
+                            <option value="obrigatoria" <?php if ($materia['tipo'] == "obrigatoria")
+                                echo "selected"; ?>>
+                                Obrigatória
+                            </option>
 
 
-<option 
-value="optativa"
-<?php if($materia['tipo']=="optativa") echo "selected"; ?>
->
-Optativa
-</option>
+                            <option value="optativa" <?php if ($materia['tipo'] == "optativa")
+                                echo "selected"; ?>>
+                                Optativa
+                            </option>
 
 
-<option 
-value="eletiva"
-<?php if($materia['tipo']=="eletiva") echo "selected"; ?>
->
-Eletiva
-</option>
+                            <option value="eletiva" <?php if ($materia['tipo'] == "eletiva")
+                                echo "selected"; ?>>
+                                Eletiva
+                            </option>
 
 
-</select>
+                        </select>
 
 
-</div>
+                    </div>
 
 
 
 
-<div class="form-group">
+                    <div class="form-group">
 
-<label>
-Professor responsável
-</label>
+                        <label>
+                            Professor responsável
+                        </label>
 
 
-<select name="idUsuario">
+                        <select name="idUsuario">
 
-<option value="">
-Nenhum professor
-</option>
+                            <option value="">
+                                Nenhum professor
+                            </option>
 
 
-<?php foreach($professores as $professor): ?>
+                            <?php foreach ($professores as $professor): ?>
 
-<option 
-value="<?php echo htmlspecialchars($professor['idUsuario']); ?>"
-<?php if((int)$materia['idUsuario'] === (int)$professor['idUsuario']) echo "selected"; ?>
->
-<?php echo htmlspecialchars($professor['nomeUsuario']); ?>
-</option>
+                                <option value="<?php echo htmlspecialchars($professor['idUsuario']); ?>" <?php if ((int) $materia['idUsuario'] === (int) $professor['idUsuario'])
+                                       echo "selected"; ?>>
+                                    <?php echo htmlspecialchars($professor['nomeUsuario']); ?>
+                                </option>
 
-<?php endforeach; ?>
+                            <?php endforeach; ?>
 
 
-</select>
+                        </select>
 
-</div>
+                    </div>
 
 
 
 
 
 
-<div class="form-group">
+                    <div class="form-group">
 
-<label>
-Carga Horária
-</label>
+                        <label>
+                            Carga Horária
+                        </label>
 
 
-<input
-type="number"
-name="cargaHoraria"
-value="<?php echo $materia['cargaHoraria']; ?>"
-required>
+                        <input type="number" name="cargaHoraria" value="<?php echo $materia['cargaHoraria']; ?>" required>
 
 
-</div>
+                    </div>
 
 
 
 
 
 
-<div class="form-group">
+                    <div class="form-group">
 
 
-<label>
-Detalhes
-</label>
+                        <label>
+                            Detalhes
+                        </label>
 
 
-<textarea name="detalhesMateria"><?php echo htmlspecialchars($materia['detalhesMateria']); ?></textarea>
+                        <textarea
+                            name="detalhesMateria"><?php echo htmlspecialchars($materia['detalhesMateria']); ?></textarea>
 
 
-</div>
+                    </div>
 
 
 
 
 
 
-<div class="form-group">
+                    <div class="form-group">
 
 
-<label>
-Status
-</label>
+                        <label>
+                            Status
+                        </label>
 
 
-<select name="stts">
+                        <select name="stts">
 
 
-<option value="ativa"
-<?php if($materia['stts']=="ativa") echo "selected"; ?>
->
-Ativa
-</option>
+                            <option value="ativa" <?php if ($materia['stts'] == "ativa")
+                                echo "selected"; ?>>
+                                Ativa
+                            </option>
 
 
-<option value="inativa"
-<?php if($materia['stts']=="inativa") echo "selected"; ?>
->
-Inativa
-</option>
+                            <option value="inativa" <?php if ($materia['stts'] == "inativa")
+                                echo "selected"; ?>>
+                                Inativa
+                            </option>
 
 
-</select>
+                        </select>
 
 
-</div>
+                    </div>
 
 
 
 
 
 
-<div class="form-actions">
+                    <div class="form-actions">
 
 
-<button class="btn btn-primary">
+                        <button class="btn btn-primary">
 
-Salvar alterações
+                            Salvar alterações
 
-</button>
+                        </button>
 
 
-<a href="configuracoesDev.php" class="btn btn-ghost">
+                        <a href="configuracoesDev.php" class="btn btn-ghost">
 
-Cancelar
+                            Cancelar
 
-</a>
+                        </a>
 
 
-</div>
+                    </div>
 
 
 
 
-</form>
+                </form>
 
 
-</section>
+            </section>
 
 
 
-<?php endif; ?>
+        <?php endif; ?>
 
 
-</main>
+    </main>
 
 
 </body>
